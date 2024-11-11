@@ -70,4 +70,4 @@ The `data` folder includes the following files:
 
 ## 📜 License
 
-This project is licensed under the MIT license. See the [LICENSE](https://github.com/CycPhoenix/University-Management-System/blob/master/LICENSE) file for more details.
+This project is licensed under the MIT license. See the [LICENSE](https://github.com/CycPhoenix/University-Management-System?tab=MIT-1-ov-file) file for more details.
