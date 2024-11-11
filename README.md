@@ -22,6 +22,7 @@ Key roles:
 
 ## 📂 Directory Structure
 
+```
 UMS_Project/
 ├── main.py                     # Main menu and role selection
 ├── data/                       # Folder for data files
@@ -36,6 +37,7 @@ UMS_Project/
     ├── student_functions.py    # Student role functions
     ├── registrar_functions.py  # Registrar role functions
     └── accountant_functions.py # Accountant role functions
+```
 
 ## 🚀 Getting Started
 
