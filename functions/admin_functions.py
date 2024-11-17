@@ -14,8 +14,6 @@ STUDENTS_FILE = get_resource_path('data/students.txt')
 LECTURERS_FILE = get_resource_path('data/lecturers.txt')
 LECTURER_COURSES_FILE = get_resource_path('data/lecturer_courses.txt')
 
-DATA_PATH = "data"
-
 
 def admin_menu():
     """
@@ -174,6 +172,7 @@ def update_course_information():
     except ValueError:
         print("Invalid input. Please enter a number.")
 
+
 def manage_students():
     """
     Add, remove, or update student information.
@@ -197,53 +196,6 @@ def manage_students():
         else:
             print("Invalid choice. Please try again.")
 
-    students_file = os.path.join(DATA_PATH, "students.txt")
-
-    if choice == "1":
-        # Add a new student
-        student_id = input("Enter student ID: ").strip()
-        name = input("Enter student name: ").strip()
-        department = input("Enter student department: ").strip()
-
-        # Add new student to studnets.txt
-        with open(students_file, "a") as f:
-            f.write(f"{student_id}, {name}, {department}")
-        print("Student added successfully.")
-
-    elif choice == "2":
-        # Remove an existing student
-        student_id = input("Enter student ID to remove: ").strip()
-
-        # Remove student from studnets.txt
-        with open(students_file, "r") as f:
-            lines = f.readlines()
-        with open(students_file, "w") as f:
-            for line in lines:
-                if not line.startswith(student_id):
-                    f.write(line)
-
-        print("Student removed successfully.")
-
-    elif choice == "3":
-        # Update student information
-        student_id = input("Enter Student ID to update: ").strip()
-        new_name = input("Enter new Name: ").strip()
-        new_department = input("Enter new Department: ").strip()
-
-        # Update studnet details in students.txt
-        with open(students_file, "r") as f:
-            lines = f.readlines()
-        with open(students_file, "w") as f:
-            for line in lines:
-                if line.startswith(student_id):
-                    f.write(f"{student_id}, {new_name}, {new_department}")
-                else:
-                    f.write(line)
-        print("Student information updated successfully.")
-
-    else:
-        print("Invalid choice.")
-
 
 def add_student():
     """Add a new student to the students file."""
@@ -256,6 +208,7 @@ def add_student():
     with open(STUDENTS_FILE, 'a') as f:
         f.write(f"{student_id}, {name}, {department}\n")
     print(f"Student '{name}' added successfully!")
+
 
 def remove_student():
     """Remove a student from the students file."""
@@ -291,6 +244,7 @@ def remove_student():
 
     except ValueError:
         print("Invalid input. Please enter a number.")
+
 
 def update_student_information():
     """Update the details of an existing student."""
@@ -371,6 +325,7 @@ def manage_lecturers():
         else:
             print("Invalid choice.")
 
+
 def add_lecturer():
     """Add a new lecturer to the lecturers file."""
     print("\n--- Add New Lecturer ---")
@@ -382,6 +337,7 @@ def add_lecturer():
     with open(LECTURERS_FILE, 'a') as f:
         f.write(f"{lecturer_id}, {name}, {department}\n")
     print(f"Lecturer '{name}' added successfully!")
+
 
 def remove_lecturer():
     """Remove a lecturer from the lecturers file."""
@@ -415,6 +371,7 @@ def remove_lecturer():
 
     except ValueError:
         print("Invalid input. Please enter a number.")
+
 
 def update_lecturer_information():
     """Update the deatils of an existing lecturer."""
@@ -468,6 +425,7 @@ def update_lecturer_information():
     except ValueError:
         print("Invalid input. Please enter a number.")
 
+
 def assign_course_to_lecturer():
     """Assign a course to a lecturer."""
     print("\n--- Assign Course to Lecturer ---")
@@ -478,6 +436,7 @@ def assign_course_to_lecturer():
     with open(LECTURER_COURSES_FILE, 'a') as f:
         f.write(f"{lecturer_id}, {course_code}\n")
     print("Course assigned to lecturer successfully!")
+
 
 def generate_reports():
     """Generate various reports (e.g., list of students, lecturers, courses)."""
@@ -500,6 +459,7 @@ def generate_reports():
         else:
             print("Invalid choice. Please try again.")
 
+
 def print_students_report():
     """Prints a formatted list of all students."""
     print("\n--- Student Report ---")
@@ -516,6 +476,7 @@ def print_students_report():
     except FileNotFoundError:
         print("Students file not found.")
     
+
 def print_courses_report():
     """Prints a formatted list of all courses."""
     print("\n--- Course Report ---")
@@ -531,6 +492,7 @@ def print_courses_report():
 
     except FileNotFoundError:
         print("Courses file not found.")
+
 
 def print_lecturers_report():
     """Prints a formatted list of all lecturers"""
