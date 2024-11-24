@@ -1,2 +1,0 @@
-# StudentID, Name, Department
-# Example: TP076560, Ban Cong Yin Brosnan, 'Computing, Technology & Games Development'
