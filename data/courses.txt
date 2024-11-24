@@ -1,2 +1,0 @@
-# CourseCode, CourseName, Credits
-# Example: 
