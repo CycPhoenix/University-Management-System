@@ -1,0 +1,4 @@
+APUF2409ID,Bachelor of Arts (Honours) in Industrial Design,50
+APUF2409VFX,Bachelor of Arts (Honours) in Visual Effects,50
+APUF2409ANM,Bachelor of Arts (Honours) in Animation,50
+APUF2409DA,Bachelor of Arts (Honours) in Digital Advertising,50

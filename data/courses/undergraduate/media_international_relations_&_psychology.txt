@@ -1,0 +1,3 @@
+APUF2409MCS,Bachelor of Arts (Honours) in Media and Communication Studies,50
+APUF2409IR,Bachelor of Arts (Honours) in International Relations,50
+APUF2409PSY,Bachelor of Science (Honours) in Psychology,50

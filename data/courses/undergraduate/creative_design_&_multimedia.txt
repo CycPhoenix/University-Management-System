@@ -1,0 +1,3 @@
+APUF2409IMIT,Bachelor in Interactive Media and Immersive Technology (Honours),50
+APUF2409IMIT(VRAR),Bachelor in Interactive Media and Immersive Technology (Honours) with a specialism in VR/AR,50
+APUF2409CGD,Bachelor of Science (Honours) in Computer Games Development,50

@@ -1,4 +1,5 @@
-Foundation in Business, Finance, Psychology, Hospitality & Tourism
-Foundation in Computing & Technology
-Foundation in Engineering
-Foundation in Architecture & Design
+UCFF2409BF,Foundation in Business / Finance / Psychology / Hospitality & Tourism,50
+UCFF2409CT,Foundation in Computing & Technology,50
+UCFF4409ENG,Foundation in Engineering,50
+UCFF2409DS,Foundation in Architecture & Design,50
+1,1,1

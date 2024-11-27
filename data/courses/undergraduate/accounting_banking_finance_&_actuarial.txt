@@ -1,0 +1,10 @@
+APUF2409AF,Bachelor of Accounting and Finance (Honours),50
+APUF2409AF(FA),Bachelor of Accounting and Finance (Honours) with a specialism in Forensic Accounting,50
+APUF2409AF(FI),Bachelor of Accounting and Finance (Honours) with a specialism in Forex and Investments,50
+APUF2409AF(AT),Bachelor of Accounting and Finance (Honours) with a specialism in Accounting Technology,50
+APUF2409ACS,Bachelor of Science (Honours) in Actuarial Studies,50
+APUF2409ACS(DA),Bachelor of Science (Honours) in Actuarial Studies with a specialism in Data Analytics,50
+APUF2409ACS(FT),Bachelor of Science (Honours) in Actuarial Studies with a specialism in Financial Technology,50
+APUF2409BAF,Bachelor of Banking and Finance (Hons),50
+APUF2409BAF(IA),Bachelor of Banking and Finance (Hons) with a specialism in Investment Analytics,50
+APUF2409BAF(FT),Bachelor of Banking and Finance (Hons) with a specialism in Financial Technology,50
