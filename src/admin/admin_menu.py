@@ -3,7 +3,6 @@ from admin.students.manage_students import manage_students
 from admin.lecturers.manage_lecturers import manage_lecturers
 from admin.reports.generate_reports import generate_reports
 from admin.view_all_data import view_all_data
-from utils.display_choices import display_choices
 
 def admin_menu():
     """Main admin menu to manage the university system."""
