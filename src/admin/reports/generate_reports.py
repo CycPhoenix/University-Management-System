@@ -1,30 +1,43 @@
-from utils.load_data import load_data
-from .total_overview import total_overview
-from .students_and_lecturers_by_department import students_and_lecturers_by_department
-from .total_courses_by_type import total_courses_by_type
-
+from admin.reports.total_overview import total_overview
+from admin.reports.students_and_lecturers_by_department import students_and_lecturers_by_department
+from admin.reports.total_courses_by_type import total_courses_by_type
+from utils.display_choices import display_choices
 
 def generate_reports():
-    """Menu for generating reports."""
-    while True:
-        print("\n--- Generate Reports ---")
-        print("1. Generate Total Overview")
-        print("2. Students and Lecturers by Department")
-        print("3. Total Courses by Type")
-        print("4. Back to Admin Menu")
-        choice = input("Select an option: ").strip()
+    """Menu to generate reports."""
+    gr_art = r"""
+     ___                             _         ___                       _          
+    /  _>  ___ ._ _  ___  _ _  ___ _| |_ ___  | . \ ___  ___  ___  _ _ _| |_ ___
+    | <_/\/ ._>| ' |/ ._>| '_><_> | | | / ._> |   // ._>| . \/ . \| '_> | | <_-<
+    `____/\___.|_|_|\___.|_|  <___| |_| \___. |_\_\\___.|  _/\___/|_|   |_| /__/
+                                                        |_|                     
+    """
+    
+    # Calculate the length based on the line in the ASCII art
+    separator_length = max(len(line) for line in gr_art.splitlines())
+    separator = "=" * separator_length
 
-        try:
-            if choice == "1":
-                total_overview()
-            elif choice == "2":
-                students_and_lecturers_by_department()
-            elif choice == "3":
-                total_courses_by_type()
-            elif choice == "4":
-                print("Returning to admin menu...")
-                break
-            else:
-                print("Invalid choice. Please try again.")
-        except Exception as e:
-            print(f"An error occurred while generating the report: {e}")
+    while True:
+        print()
+        print(separator)
+        print(gr_art)
+        print(separator)
+        options = {
+            '1': 'Total Overview',
+            '2': 'Students and Lecturers by Department',
+            '3': 'Total Courses by Type',
+            '4': 'Back to Admin Menu'
+        }
+        choice = display_choices(options)
+
+        if choice == '1':
+            total_overview()
+        elif choice == '2':
+            students_and_lecturers_by_department()
+        elif choice == '3':
+            total_courses_by_type()
+        elif choice == '4':
+            print("Returning to admin menu...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
