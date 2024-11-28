@@ -1,6 +1,0 @@
-APUPF2409PC,PhD in Computing,50
-APUPF2409PT,PhD in Technology,50
-APUPF2409PM,PhD in Management,50
-APUPF2409PF,PhD in Finance,50
-APUPF2409DPE,Doctor of Philosophy in Engineering,50
-APUPF2409DBA,Doctor of Business Administration,50

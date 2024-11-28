@@ -1,5 +1,0 @@
-APUF2409EEE,Bachelor of Electrical and Electronics Engineering with Honours,50
-APUF2409ME,Bachelor of Mechatronic Engineering with Honours,50
-APUF2409MCH,Bachelor of Mechanical Engineering with Honours,50
-APUF2409CE,Bachelor of Computer Engineering with Honours,50
-APUF2409PE,Bachelor of Petroleum Engineering with Honours,50
