@@ -1,21 +1,36 @@
-# admin_menu.py
-from .courses.manage_courses import manage_courses
-from .students.manage_students import manage_students
-from .lecturers.manage_lecturers import manage_lecturers
-from .reports.generate_reports import generate_reports
-from .data.view_all_data import view_all_data
+from admin.courses.manage_courses import manage_courses
+from admin.students.manage_students import manage_students
+from admin.lecturers.manage_lecturers import manage_lecturers
+from admin.reports.generate_reports import generate_reports
+from admin.view_all_data import view_all_data
+from utils.display_choices import display_choices
 
 def admin_menu():
+    """Main admin menu to manage the university system."""
+    am_art = r"""
+     ___    _         _        __ __                
+    | . | _| |._ _ _ <_>._ _  |  \  \ ___ ._ _  _ _     
+    |   |/ . || ' ' || || ' | |     |/ ._>| ' || | |
+    |_|_|\___||_|_|_||_||_|_| |_|_|_|\___.|_|_|`___|
+    """
+
+    separator_length = max(len(line) for line in am_art.splitlines())
+    separator = "=" * separator_length
+
     while True:
-        print("\n--- Administrator Menu ---")
-        print("1. Manage Courses")
-        print("2. Add/Remove Student")
-        print("3. Manage Lecturers")
-        print("4. Generate Reports")
-        print("5. View All Data")
-        print("6. Back to Main Menu")
-        print("--------------------------")
-        choice = input("\nSelect an option: ").strip()
+        print()
+        print(separator)
+        print(am_art)
+        print(separator)
+        options = {
+            '1': 'Manage Courses',
+            '2': 'Manage Students',
+            '3': 'Manage Lecturers',
+            '4': 'Generate Reports',
+            '5': 'View All Data',
+            '6': 'Back to Main Menu'
+        }
+        choice = display_choices(options)
 
         if choice == '1':
             manage_courses()
@@ -28,7 +43,7 @@ def admin_menu():
         elif choice == '5':
             view_all_data()
         elif choice == '6':
-            print("\nReturning to main menu...")
+            print("Returning to main menu...")
             break
         else:
-            print("Invalid option. Please try again.")
+            print("Invalid choice. Please try again.")
