@@ -1,5 +1,4 @@
 from admin.admin_menu import admin_menu
-from utils.display_choices import display_choices
 
 def main_menu():
     """Main menu to select system role."""
@@ -30,16 +29,15 @@ def main_menu():
         """
         
         print(ascii_art)
+        print()
+        print("1. Administrator")
+        print("2. Lecturer")
+        print("3. Student")
+        print("4. Registrar")
+        print("5. Accountant")
+        print("6. Exit System")
 
-        options = {
-            '1': 'Administrator',
-            '2': 'Lecturer',
-            '3': 'Student',
-            '4': 'Registrar',
-            '5': 'Accountant',
-            '6': 'Exit System'
-        }
-        choice = display_choices(options)
+        choice = input("Select an option: ")
 
         if choice == '1':
             admin_menu()
