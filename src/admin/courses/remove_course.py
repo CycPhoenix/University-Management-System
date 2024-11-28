@@ -1,103 +1,133 @@
-from utils.display_choices import display_choices
+from utils.load_data import load_data
+from utils.write_data import write_data
 from settings import FOUNDATION_FILE, DIPLOMA_FILE, UNDERGRADUATE_DIR, POSTGRADUATE_DIR
-
+import os
 
 def remove_course():
     """Remove a course from the system."""
-    print(f"\n--- Remove Course ---")
+    rc_art = r"""
+     ___                              ___                         
+    | . \ ___ ._ _ _  ___  _ _  ___  |  _> ___  _ _  _ _  ___ ___ 
+    |   // ._>| ' ' |/ . \| | |/ ._> | <__/ . \| | || '_><_-</ ._>
+    |_\_\\___.|_|_|_|\___/|__/ \___. `___/\___/`___||_|  /__/\___.
+                                                              
+    """
+    separator_length = max(len(line) for line in rc_art.splitlines())
+    separator = "=" * separator_length
 
     # Select the course level
     while True:
-        courses = {
-            '1': 'Foundation',
-            '2': 'Diploma',
-            '3': 'Undergraduate',
-            '4': 'Postgraduate',
-            '5': 'Cancel'
-        }
-        course_choice = display_choices(courses)
+        print()
+        print(separator)
+        print(rc_art)
+        print(separator)
+        print("\nSelect Course Type:")
+        print("1. Foundation")
+        print("2. Diploma")
+        print("3. Undergraduate")
+        print("4. Postgraduate")
+        print("5. Cancel")
+        choice = input("Enter your choice: ").strip()
 
-        if course_choice == '1':
+        if choice == '1':
             file_path = FOUNDATION_FILE
-            selected_course_type = 'Foundation'
+            selected_course_type = "Foundation"
             break
-        elif course_choice == '2':
+        elif choice == '2':
             file_path = DIPLOMA_FILE
-            selected_course_type = 'Diploma'
+            selected_course_type = "Diploma"
             break
-        elif course_choice == '3':
-            categories = {
-                '1': 'Accounting, Banking, Finance & Actuarial',
-                '2': 'Business Management, Marketing & Tourism',
-                '3': 'Computing & Technology',
-                '4': 'Creative Design & Multimedia',
-                '5': 'Design, Advertising, Animation & VFX',
-                '6': 'Engineering',
-                '7': 'Media, International Relations & Psychology',
-                '8': 'Cancel'
-            }
-            category_choice = display_choices(categories)
-
-            if category_choice == '8':
-                print("Action canceled. Returning to admin menu.")
-                return
-            elif category_choice in categories:
-                category = categories[category_choice]
-                file_path = f"{UNDERGRADUATE_DIR}{category.lower().replace(', ', '_').replace(' ', '_')}.txt"
-                selected_course_type = f"Undergraduate - {category}"
-                break
-        elif course_choice == '4':
-            categories = {
-                '1': 'Masters',
-                '2': 'PhD',
-                '3': 'Cancel'
-            }
-            category_choice = display_choices(categories)
-
-            if category_choice == '3':
-                print("Action canceled. Returning to admin menu.")
-                return
-            elif category_choice in categories:
-                category = categories[category_choice]
-                file_path = f"{POSTGRADUATE_DIR}{category.lower()}.txt"
-                selected_course_type = f"Postgraduate - {category}"
-                break
-        elif course_choice == '5':
-            print("Action canceled. Returning to admin menu.")
+        elif choice == '3':
+            print("\n--- Undergraduate Categories ---")
+            try:
+                undergraduate_files = [
+                    f for f in os.listdir(UNDERGRADUATE_DIR)
+                    if os.path.isfile(os.path.join(UNDERGRADUATE_DIR, f)) and f.endswith('.txt')
+                ]
+                if not undergraduate_files:
+                    print("No undergraduate categories found.")
+                    return
+                    
+                for idx, file in enumerate(undergraduate_files, start=1):
+                    print(f"{idx}. {file.replace('_', ' ').replace('.txt', '').title()}")
+                category_choice = input("\nSelect a category: ").strip()
+                if category_choice.isdigit() and 1 <= int(category_choice) <= len(undergraduate_files):
+                    selected_file = undergraduate_files[int(category_choice) - 1]
+                    file_path = os.path.join(UNDERGRADUATE_DIR, selected_file)
+                    selected_course_type = f"Undergraduate - {selected_file.replace('_', ' ').replace('.txt', '').title()}"
+                    break
+                else:
+                    print("Invalid choice. Returning to course menu.")
+                    return
+            except Exception as e:
+                print(f"Error accessing undergraduate categories: {e}")
+        elif choice == '4':
+            print("\n--- Postgraduate Categories ---")
+            try:
+                postgraduate_files = [
+                    f for f in os.listdir(POSTGRADUATE_DIR)
+                    if os.path.isfile(os.path.join(POSTGRADUATE_DIR, f)) and f.endswith('.txt')
+                ]
+                if not postgraduate_files:
+                    print("No postgraduate categories found.")
+                    return
+                    
+                for idx, file in enumerate(postgraduate_files, start=1):
+                    print(f"{idx}. {file.replace('_', ' ').replace('.txt', '').title()}")
+                category_choice = input("\nSelect a category: ").strip()
+                if category_choice.isdigit() and 1 <= int(category_choice) <= len(postgraduate_files):
+                    selected_file = postgraduate_files[int(category_choice) - 1]
+                    file_path = os.path.join(POSTGRADUATE_DIR, selected_file)
+                    selected_course_type = f"Postgraduate - {selected_file.replace('_', ' ').replace('.txt', '').title()}"
+                    break
+                else:
+                    print("Invalid choice. Returning to course menu.")
+                    return
+            except Exception as e:
+                print(f"Error accessing postgraduate categories: {e}")
+        elif choice == '5':
+            print("Action canceled. Returning to admin menu...")
             return
         else:
             print("Invalid choice. Please try again.")
-    
+
+    # Load courses
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            courses = f.readlines()
+        courses = load_data(file_path)
+        if not courses:
+            print(f"No courses found in the selected file: {file_path}")
+            return
     except FileNotFoundError:
-        print(f"Error: File '{file_path}' does not exist.")
+        print(f"Error: File '{file_path}' not found.")
         return
-    except Exception as e:
-        print(f"Error: Failed to load courses. {e}")
-        return
-    
-    courses = [course.strip() for course in courses]
-    if not courses:
-        print(f"No courses found in {selected_course_type}.")
-        return
-    
-    course_options = {str(i + 1): course for i, course in enumerate(courses)}
-    course_options[str(len(courses) + 1)] = 'Cancel'
-    course_choice = display_choices(course_options)
 
-    if course_choice == str(len(courses) + 1):
-        print("Action canceled. Returning to admin menu.")
-        return
-    
-    selected_course = course_options[course_choice]
+    # Display courses to remove
+    print("\n--- Existing Courses ---")
+    for idx, course in enumerate(courses, 1):
+        print(f"{idx}. {course.strip()}")
+    print(f"{len(courses) + 1}. Cancel")
+    choice = input("\nSelect a course to remove: ").strip()
 
+    if choice == str(len(courses) + 1):
+        print("Action canceled. Returning to admin menu...")
+        return
+    if not choice.isdigit() or not (1 <= int(choice) <= len(courses)):
+        print("Invalid choice. Returning to admin menu...")
+        return
+
+    selected_course = courses[int(choice) - 1]
+    print(f"Selected course: {selected_course.strip()}")
+
+    # Confirmation removal
+    confirmation = input(f"Are you sure you want to remove '{selected_course.strip()}'? (yes/no): ").strip().lower()
+    if confirmation != "yes":
+        print("Action canceled. Returning to Manage Courses.")
+        return
+
+    # Update the file to remove the selected course
     try:
-        with open(file_path, 'w', encoding='utf-8') as f:
-            for course in courses:
-                if course != selected_course:
-                    f.write(f"{course.strip()}\n")
-        print(f"Course '{selected_course}' removed successfully from {selected_course_type}.")
+        updated_courses = [course.strip() for course in courses if course.strip() != selected_course.strip()]
+        write_data(file_path, updated_courses)
+        print(f"Course '{selected_course.strip()}' removed successfully.")
     except Exception as e:
-        print(f"Error: Failed to remove course. {e}")
+        print(f"An error occurred while removing the course: {e}")
