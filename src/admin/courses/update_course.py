@@ -57,7 +57,8 @@ def update_course():
         print("3. Undergraduate")
         print("4. Postgraduate")
         print("5. Cancel")
-        choice = input("Enter your choice: ").strip()
+        
+        choice = input("\nEnter your choice: ").strip()
 
         if choice == '1':
             ascii_art = foundation_art
