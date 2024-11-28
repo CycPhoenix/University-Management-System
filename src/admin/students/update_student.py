@@ -1,4 +1,3 @@
-from utils.display_choices import display_choices
 from utils.load_data import load_data
 from utils.write_data import write_data
 from settings import STUDENTS_FILE
