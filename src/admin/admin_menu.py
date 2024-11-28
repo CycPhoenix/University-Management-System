@@ -21,15 +21,14 @@ def admin_menu():
         print(separator)
         print(am_art)
         print(separator)
-        options = {
-            '1': 'Manage Courses',
-            '2': 'Manage Students',
-            '3': 'Manage Lecturers',
-            '4': 'Generate Reports',
-            '5': 'View All Data',
-            '6': 'Back to Main Menu'
-        }
-        choice = display_choices(options)
+        print("1. Manage Courses")
+        print("2. Manage Students")
+        print("3. Manage Lecturers")
+        print("4. Generate Reports")
+        print("5. View All Data")
+        print("6.Back to Main Menu")
+
+        choice = input("\nSelect an option: ")
 
         if choice == '1':
             manage_courses()
