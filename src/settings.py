@@ -1,16 +1,21 @@
-# settings.py
-# File paths for various data files in the system
-ATTENDANCE_FILE = 'data/attendance.txt'
-COURSES_FILE = 'data/courses.txt'
-ENROLLMENTS_FILE = 'data/enrollments.txt'
-FEES_FILE = 'data/fees.txt'
-GRADES_FILE = 'data/grades.txt'
-LECTURERS_FILE = 'data/lecturers.txt'
-LECTURER_COURSES_FILE = 'data/lecturer_courses.txt'
-STUDENTS_FILE = 'data/students.txt'
+import os
 
-DEPARTMENTS_FILE = 'data/departments.txt'
-FOUNDATION_FILE = 'data/courses/foundation.txt'
-DIPLOMA_FILE = 'data/courses/diploma.txt'
-UNDERGRADUATE_DIR = 'data/courses/undergraduate/'
-POSTGRADUATE_DIR = 'data/courses/postgraduate/'
+# Base directory
+BASE_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
+
+# File paths
+ATTENDANCE_FILE = os.path.join(BASE_DIR, 'attendance.txt')
+COURSES_FILE = os.path.join(BASE_DIR, 'courses.txt')
+ENROLLMENTS_FILE = os.path.join(BASE_DIR, 'enrollments.txt')
+FEES_FILE = os.path.join(BASE_DIR, 'fees.txt')
+GRADES_FILE = os.path.join(BASE_DIR, 'grades.txt')
+LECTURERS_FILE = os.path.join(BASE_DIR, 'lecturers.txt')
+LECTURER_COURSES_FILE = os.path.join(BASE_DIR, 'lecturer_courses.txt')
+STUDENTS_FILE = os.path.join(BASE_DIR, 'students.txt')
+
+DEPARTMENTS_FILE = os.path.join(BASE_DIR, 'departments.txt')
+FOUNDATION_FILE = os.path.join(BASE_DIR, 'courses', 'foundation.txt')
+DIPLOMA_FILE = os.path.join(BASE_DIR, 'courses', 'diploma.txt')
+UNDERGRADUATE_DIR = os.path.join(BASE_DIR, 'courses', 'undergraduate')
+POSTGRADUATE_DIR = os.path.join(BASE_DIR, 'courses', 'postgraduate')
+EXAMPLE_FILE = os.path.join(BASE_DIR, 'example.txt')
