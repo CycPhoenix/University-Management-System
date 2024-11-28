@@ -1,7 +1,6 @@
 from admin.reports.total_overview import total_overview
 from admin.reports.students_and_lecturers_by_department import students_and_lecturers_by_department
 from admin.reports.total_courses_by_type import total_courses_by_type
-from utils.display_choices import display_choices
 
 def generate_reports():
     """Menu to generate reports."""
