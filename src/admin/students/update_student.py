@@ -45,7 +45,7 @@ def update_student():
         return
 
     selected_student = students[int(choice) - 1]
-    student_fields = selected_student.split(', ')
+    student_fields = selected_student.split(',')
     if len(student_fields) != 5:
         print("Error: Selected student data is corrupted.")
         return
@@ -53,7 +53,7 @@ def update_student():
     student_id, student_name, department, email, contact_number = [field.strip() for field in student_fields]
 
     # Update fields
-    new_id = input(f"Enter new Student ID (press Enter to keep '{student_id}'): ").strip() or student_id
+    new_id = input(f"Enter new Student ID (press Enter to keep '{student_id}'): ").strip().upper() or student_id
     new_name = input(f"Enter new Name (press Enter to keep '{student_name}'): ").strip() or student_name
     new_department = input(f"Enter new Department (press Enter to keep '{department}'): ").strip() or department
     new_email = input(f"Enter new Email (press Enter to keep '{email}'): ").strip() or email
