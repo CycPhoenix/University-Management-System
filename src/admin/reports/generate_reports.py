@@ -21,13 +21,12 @@ def generate_reports():
         print(separator)
         print(gr_art)
         print(separator)
-        options = {
-            '1': 'Total Overview',
-            '2': 'Students and Lecturers by Department',
-            '3': 'Total Courses by Type',
-            '4': 'Back to Admin Menu'
-        }
-        choice = display_choices(options)
+        print("1. Total Overview")
+        print("2. Studentes and Lecturers by Department")
+        print("3. Total Courses by Type")
+        print("4. Back to Admin Menu")
+
+        choice = input("Select an option: ")
 
         if choice == '1':
             total_overview()
