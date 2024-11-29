@@ -57,29 +57,30 @@ def update_course():
         print("3. Undergraduate")
         print("4. Postgraduate")
         print("5. Cancel")
-        
+
         choice = input("\nEnter your choice: ").strip()
 
         if choice == '1':
             ascii_art = foundation_art
             file_path = FOUNDATION_FILE
+            selected_course_type = "Foundation"
             break
         elif choice == '2':
             ascii_art = diploma_art
             file_path = DIPLOMA_FILE
+            selected_course_type = "Diploma"
             break
         elif choice == '3':
             ascii_art = undergraduate_art
+            print("\n--- Undergraduate Categories ---")
             try:
-                print("\n--- Undergraduate Categories ---")
                 undergraduate_files = [
                     f for f in os.listdir(UNDERGRADUATE_DIR)
-                    if os.path.isfile(os.path.join(UNDERGRADUATE_DIR, f)) and f.endswith('.txt')
+                    if f.endswith('.txt')
                 ]
                 if not undergraduate_files:
                     print("No undergraduate categories found.")
                     return
-                    
                 for idx, file in enumerate(undergraduate_files, start=1):
                     print(f"{idx}. {file.replace('_', ' ').replace('.txt', '').title()}")
                 category_choice = input("\nSelect a category: ").strip()
@@ -89,22 +90,21 @@ def update_course():
                     selected_course_type = f"Undergraduate - {selected_file.replace('_', ' ').replace('.txt', '').title()}"
                     break
                 else:
-                    print("Invalid choice. Returning to course menu.")
+                    print("Invalid choice. Returning to menu.")
                     return
             except Exception as e:
                 print(f"Error accessing undergraduate categories: {e}")
         elif choice == '4':
             ascii_art = postgraduate_art
+            print("\n--- Postgraduate Categories ---")
             try:
-                print("\n--- Postgraduate Categories ---")
                 postgraduate_files = [
                     f for f in os.listdir(POSTGRADUATE_DIR)
-                    if os.path.isfile(os.path.join(POSTGRADUATE_DIR, f)) and f.endswith('.txt')
+                    if f.endswith('.txt')
                 ]
                 if not postgraduate_files:
                     print("No postgraduate categories found.")
                     return
-                    
                 for idx, file in enumerate(postgraduate_files, start=1):
                     print(f"{idx}. {file.replace('_', ' ').replace('.txt', '').title()}")
                 category_choice = input("\nSelect a category: ").strip()
@@ -114,7 +114,7 @@ def update_course():
                     selected_course_type = f"Postgraduate - {selected_file.replace('_', ' ').replace('.txt', '').title()}"
                     break
                 else:
-                    print("Invalid choice. Returning to course menu.")
+                    print("Invalid choice. Returning to menu.")
                     return
             except Exception as e:
                 print(f"Error accessing postgraduate categories: {e}")
@@ -124,96 +124,44 @@ def update_course():
         else:
             print("Invalid choice. Please try again.")
 
-    # Load courses
+    # Load and display courses
     try:
         courses = load_data(file_path)
         if not courses:
-            print(f"No courses found in the selected file: {file_path}")
+            print(f"No courses found in {selected_course_type}.")
             return
     except FileNotFoundError:
         print(f"Error: File '{file_path}' not found.")
         return
-    
-    # Parse update course into fields
-    course_data = []
-    for course in courses:
-        course_fields = course.strip().split(',')
-        if len(course_fields) == 3:
-            course_data.append(course_fields)
-        else:
-            course_data.append(["[Corrupted Data]"])
 
-    # Calculate column widths dynamically
-    col_widths = [25, 110, 10]
-    headers = ['Code', 'Name', 'Credits']
+    print("\n--- Courses ---")
+    for idx, course in enumerate(courses, start=1):
+        print(f"{idx}. {course.strip()}")
+    print(f"{len(courses) + 1}. Cancel")
 
-    # Add indentation
-    indent = '   ' # Add 3 spaces of indentation
-
-    header_row = "".join(f"{header:<{width}}" for header, width in zip(headers, col_widths))
-    separator = "=" * len(header_row)
-
-    print()
-    print(separator)
-    print(ascii_art)
-    print(separator)
-    print(indent + header_row)
-    print(separator)
-
-    # Display courses to update
-    for idx, course_fields in enumerate(course_data, start=1):
-        if len(course_fields) == 3:
-            row = "".join(f"{field:<{width}}" for field, width in zip(course_fields, col_widths))
-            print(f"{idx:<3}{row}")
-        else:
-            print(f"{idx:<3}[Corrupted Data]")
-    
-    print()
-
-    choice = input("Select a course to update: ").strip()
-    if not choice.isdigit() or not (1 <= int(choice) <= len(courses) + 1):
+    # Select a course to update
+    choice = input("\nSelect a course to update: ").strip()
+    if not choice.isdigit() or int(choice) < 1 or int(choice) > len(courses):
         print("Invalid choice. Returning to admin menu...")
         return
 
-    if int(choice) == len(courses) + 1:
-        print("Action canceled. Returning to admin menu...")
-        return
-
-    print(separator)
-    
-    # print("\n--- Existing Courses ---")
-    # for idx, course in enumerate(courses, 1):
-    #     print(f"{idx}. {course.strip()}")
-    # print(f"{len(courses) + 1}. Cancel")
-    # choice = input("Select a course to update: ").strip()
-
-    # if choice == str(len(courses) + 1):
-    #     print("Action canceled. Returning to admin menu...")
-    #     return
-    # if not choice.isdigit() or int(choice) < 1 or int(choice) > len(courses):
-    #     print("Invalid choice. Returning to admin menu...")
-    #     return
-
     selected_course = courses[int(choice) - 1]
-    course_fields = selected_course.split(', ')
-    # "".join(f"{field} " for field, width in zip(course_fields, col_widths))
-    print(f"Selected Course: {selected_course}")
+    course_fields = selected_course.split(',')
+
     if len(course_fields) != 3:
         print("Error: Selected course data is corrupted.")
         return
 
-    # Update course details
-    course_details = selected_course.split(',')
-    new_code = input(f"Enter new Course Code (press Enter to keep '{course_details[0]}'): ").strip() or course_details[0]
-    new_name = input(f"Enter new Course Name (press Enter to keep '{course_details[1]}'): ").strip() or course_details[1]
-    new_credits = input(f"Enter new Course Credits (press Enter to keep '{course_details[2]}'): ").strip() or course_details[2]
+    # Update course fields
+    new_code = input(f"Enter new Course Code (press Enter to keep '{course_fields[0]}'): ").strip().upper() or course_fields[0]
+    new_name = input(f"Enter new Course Name (press Enter to keep '{course_fields[1]}'): ").strip() or course_fields[1]
+    new_credits = input(f"Enter new Course Credits (press Enter to keep '{course_fields[2]}'): ").strip() or course_fields[2]
 
-    # Combine updated fields
     updated_course = f"{new_code},{new_name},{new_credits}"
 
-    # Write back updated courses
+    # Update courses and save
     try:
-        updated_courses = [updated_course if course.strip() == selected_course else course.strip() for course in courses]
+        updated_courses = [updated_course if course == selected_course else course for course in courses]
         write_data(file_path, updated_courses)
         print(f"Course updated successfully: {updated_course}")
     except Exception as e:
