@@ -1,4 +1,5 @@
 from admin.admin_menu import admin_menu
+from student.student_menu import student_menu
 
 def main_menu():
     """Main menu to select system role."""
@@ -44,6 +45,8 @@ def main_menu():
 
         if choice == '1':
             admin_menu()
+        elif choice == '3':
+            student_menu()
         elif choice == '6':
             print("\nExiting the system. Goodbye!")
             break
