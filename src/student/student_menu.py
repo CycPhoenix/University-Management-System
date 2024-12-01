@@ -6,6 +6,8 @@ from admin.view_all_data import view_all_data
 
 from admin.courses.view_all_courses import view_all_courses
 from student.modules.view_attendence import access_attendance_record
+from student.modules.view_grade import view_grades
+
 
 def student_menu():
     """Main student menu to manage the university system."""
@@ -38,6 +40,7 @@ def student_menu():
             student_id = input("Enter your student ID: ")
             access_attendance_record(student_id)
         elif choice == '2':
+            student_id = input("Enter your student ID: ")
             view_grades(student_id)
         elif choice == '3':
             view_all_courses()
