@@ -8,9 +8,16 @@ def access_attendance_record(student_id):
     with open(file_path, 'r') as file:
         records = file.readlines()
     
-    print("Attendance Record:")
+    print("Attendance Record")
+    found = False
     for record in records:
-        if record.startswith(student_id):
-            _, module_code, attended, total = record.strip().split(',')
-            percentage = (int(attended) / int(total)) * 100
+        # Split the record by commas
+        parts = record.strip().split(',')
+        if parts[0] == student_id:  # If the student_id matches
+            module_code, attended, total = parts[1], int(parts[2]), int(parts[3])
+            percentage = (attended / total) * 100
             print(f"{module_code}: {percentage:.2f}% attendance")
+            found = True
+
+    if not found:
+        print(f"No attendance record found for student ID {student_id}.")
