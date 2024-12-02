@@ -1,9 +1,3 @@
-from admin.courses.manage_courses import manage_courses
-from admin.students.manage_students import manage_students
-from admin.lecturers.manage_lecturers import manage_lecturers
-from admin.reports.generate_reports import generate_reports
-from admin.view_all_data import view_all_data
-
 from admin.courses.view_all_courses import view_all_courses
 from student.modules.view_attendence import access_attendance_record
 from student.modules.view_grade import view_grades
@@ -37,10 +31,10 @@ def student_menu():
         choice = input("\nSelect an option: ")
 
         if choice == '1':
-            student_id = input("Enter your student ID: ")
+            student_id = input("Enter your student ID: ").lower()
             access_attendance_record(student_id)
         elif choice == '2':
-            student_id = input("Enter your student ID: ")
+            student_id = input("Enter your student ID: ").lower()
             view_grades(student_id)
         elif choice == '3':
             view_all_courses()
