@@ -1,14 +1,27 @@
+import os
 from utils.append_data import append_data
 from utils.load_data import load_data
 from settings import LECTURERS_FILE, DEPARTMENTS_FILE
 
 def add_lecturer():
     """Add a new lecturer to the system."""
-    print("\n--- Add New Lecturer ---")
+    al_art = r"""
+     ___    _    _   _               _                          
+    | . | _| | _| | | |   ___  ___ _| |_ _ _  _ _  ___  _ _ 
+    |   |/ . |/ . | | |_ / ._>/ | ' | | | | || '_>/ ._>| '_>
+    |_|_|\___|\___| |___|\___.\_|_. |_| `___||_|  \___.|_|  
+    """
+    separator_length = max(len(line) for line in al_art.splitlines())
+    separator = "=" * separator_length
 
-    # Input Lecturer ID
     while True:
-        lecturer_id = input("Enter the lecturer ID (or type 'Cancel' to exit): ").strip()
+        print()
+        print(separator)
+        print(al_art)
+        print(separator)
+
+        # Input Lecturer ID
+        lecturer_id = input("Enter the lecturer ID (or type 'Cancel' to exit): ").strip().upper()
         if lecturer_id.lower() == 'cancel':
             print("Action canceled. Returning to manage lecturers menu.")
             return
@@ -17,10 +30,13 @@ def add_lecturer():
             continue
 
         # Check if lecturer ID already exists
-        existing_lecturers = load_data(LECTURERS_FILE)
-        if any(lecturer_id in line.split(',')[0] for line in existing_lecturers):
-            print("Lecturer ID already exists. Please enter a new ID.")
-            continue
+        try:
+            existing_lecturers = load_data(LECTURERS_FILE)
+            if any(lecturer_id in line.split(',')[0] for line in existing_lecturers):
+                print("Lecturer ID already exists. Please enter a new ID.")
+                continue
+        except FileNotFoundError:
+            pass # If the file does not exist, treat it as empty
         break
 
     # Input Lecturer Name   
@@ -38,14 +54,17 @@ def add_lecturer():
         if not departments:
             print("No departments found. Please ensure departments.txt is populated.")
             return
-        department_options = {str(i + 1): dep.strip() for i, dep in enumerate(departments)}
-        selected_department_index = display_choices(department_options)
 
-        if selected_department_index not in department_options:
-            print("Invalid choice. Returning to menu.")
+        print("\n--- Available Departments ---")
+        for idx, department in enumerate(departments, start=1):
+            print(f"{idx}.  {department.strip()}")
+        department_choice = input("Select a department: ").strip()
+
+        if department_choice.isdigit() and 1 <= int(department_choice) <= len(departments):
+            selected_department = departments[int(department_choice) - 1].strip()
+        else:
+            print("Invalid choice. Returning to manage students menu.")
             return
-
-        department = department_options[selected_department_index]
     except FileNotFoundError:
         print(f"Error: File '{DEPARTMENTS_FILE}' not found.")
         return
@@ -55,7 +74,7 @@ def add_lecturer():
     contact_number = input("Enter the lecturer contact number (optional, press Enter to skip): ").strip()
 
     # Confirm and Save Lecturer
-    lecturer_details = f"{lecturer_id},{lecturer_name},{department},{email},{contact_number}"
+    lecturer_details = f"{lecturer_id},{lecturer_name},{selected_department},{email},{contact_number}"
     try:
         append_data(LECTURERS_FILE, lecturer_details)
         print(f"Lecturer '{lecturer_name}' added successfully!")
