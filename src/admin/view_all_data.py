@@ -163,7 +163,7 @@ def view_all_data():
                     undergraduate_data.append("[Corrupted Data]")
             for idx, undergraduate_fields in enumerate(undergraduate_data, start=1):
                 if len(undergraduate_fields) == 3:
-                    row = row = "".join(f"{field:<{width}}" for field, width in zip(undergraduate_fields, course_col_widths))
+                    row = "".join(f"{field:<{width}}" for field, width in zip(undergraduate_fields, course_col_widths))
                     print(f"{idx:<3}{row}")
                 else:
                     print(f"{idx:<3}[Corrupted Data]")
@@ -179,13 +179,13 @@ def view_all_data():
             postgraduate_data = []
             for postgraduate in postgraduate_courses:
                 postgraduate_fields = postgraduate.strip().split(',')
-                if len(undergraduate_fields) == 3:
-                    postgraduate_data.append(undergraduate_fields)
+                if len(postgraduate_fields) == 3:
+                    postgraduate_data.append(postgraduate_fields)
                 else:
                     postgraduate_data.append("[Corrupted Data]")
             for idx, postgraduate_fields in enumerate(postgraduate_data, start=1):
-                if len(undergraduate_fields) == 3:
-                    row = row = "".join(f"{field:<{width}}" for field, width in zip(postgraduate_fields, course_col_widths))
+                if len(postgraduate_fields) == 3:
+                    row = "".join(f"{field:<{width}}" for field, width in zip(postgraduate_fields, course_col_widths))
                     print(f"{idx:<3}{row}")
                 else:
                     print(f"{idx:<3}[Corrupted Data]")
