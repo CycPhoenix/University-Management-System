@@ -10,7 +10,6 @@ def view_all_courses():
     | ' || |/ ._>| | | | |   || || | | <__/ . \| | || '_><_-</ ._><_-<
     |__/ |_|\___.|__/_/  |_|_||_||_| `___/\___/`___||_|  /__/\___./__/
     """
-    # Foundation
     foundation_art = r"""
      ___                  _        _    _           
     | __>___  _ _ ._ _  _| | ___ _| |_ <_> ___ ._ _ 
@@ -76,8 +75,8 @@ def view_all_courses():
                 if not undergraduate_files:
                     print("No undergraduate categories found.")
                     
-                for idx, file in enumerate(undergraduate_files, start=1):
-                    print(f"{idx}. {file.replace('_', ' ').replace('.txt', '').title()}")
+                for idx, f in enumerate(undergraduate_files, start=1):
+                    print(f"{idx}. {f.replace('_', ' ').replace('.txt', '').title()}")
                 category_choice = input("\nSelect a category: ").strip()
                 if category_choice.isdigit() and 1 <= int(category_choice) <= len(undergraduate_files):
                     selected_file = undergraduate_files[int(category_choice) - 1]
@@ -100,8 +99,8 @@ def view_all_courses():
                 if not postgraduate_files:
                     print("No postgraduate categories found.")
                     
-                for idx, file in enumerate(postgraduate_files, start=1):
-                    print(f"{idx}. {file.replace('_', ' ').replace('.txt', '').title()}")
+                for idx, f in enumerate(postgraduate_files, start=1):
+                    print(f"{idx}. {f.replace('_', ' ').replace('.txt', '').title()}")
                 category_choice = input("\nSelect a category: ").strip()
                 if category_choice.isdigit() and 1 <= int(category_choice) <= len(postgraduate_files):
                     selected_file = postgraduate_files[int(category_choice) - 1]
