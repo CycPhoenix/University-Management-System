@@ -11,16 +11,16 @@ def add_student():
     |   |/ . |/ . | \__ \  | | | | |/ . |/ ._>| ' | | |  
     |_|_|\___|\___| <___/  |_| `___|\___|\___.|_|_| |_|           
     """
-
     separator_length = max(len(line) for line in as_art.splitlines())
     separator = "=" * separator_length
 
-    # Input Student ID
     while True:
         print()
         print(separator)
         print(as_art)
         print(separator)
+
+        # Input Student ID
         student_id = input("Enter the student ID (or type 'Cancel' to exit): ").strip().upper()
         if student_id.lower() == 'cancel':
             print("Action canceled. Returning to manage students menu.")
@@ -57,7 +57,7 @@ def add_student():
 
         print("\n--- Available Departments ---")
         for idx, department in enumerate(departments, start=1):
-            print(f"{idx}. {department.strip()}")
+            print(f"{idx}.  {department.strip()}")
         department_choice = input("Select a department: ").strip()
 
         if department_choice.isdigit() and 1 <= int(department_choice) <= len(departments):
