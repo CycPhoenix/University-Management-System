@@ -164,5 +164,4 @@ def view_all_courses():
             print(f"{idx:<3}{row}")
         else:
             print(f"{idx:<3}[Corrupted Data]")
-
     print(separator)
