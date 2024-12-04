@@ -10,5 +10,5 @@ APUF2409SE,Bachelor of Science (Hons) in Software Engineering,50
 APUF2409CS,Bachelor of Science (Honours) in Computer Science,50
 APUF2409CS(DA),Bachelor of Science (Honours) in Computer Science with a specialism in Data Analytics,50
 APUF2409CS(DF),Bachelor of Science (Honours) in Computer Science with a specialism in Digital Forensics,50
-APUF2409CS(CYB),Bachelor of Science (Honours) in Computer Science (Cyber Security)
+APUF2409CS(CYB),Bachelor of Science (Honours) in Computer Science (Cyber Security),50
 APUF2409CS(AI),Bachelor of Computer Science (Hons) (Artificial Intelligence),50
