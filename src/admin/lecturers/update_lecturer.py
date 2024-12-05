@@ -4,7 +4,20 @@ from settings import LECTURERS_FILE
 
 def update_lecturer():
     """Update a lecturer's details."""
-    print("\n--- Update Lecturer ---")
+    ul_art = r"""
+     _ _         _        _         _               _                          
+    | | | ___  _| | ___ _| |_ ___  | |   ___  ___ _| |_ _ _  _ _  ___  _ _ 
+    | ' || . \/ . |<_> | | | / ._> | |_ / ._>/ | ' | | | | || '_>/ ._>| '_>
+    `___'|  _/\___|<___| |_| \___. |___|\___.\_|_. |_| `___||_|  \___.|_|  
+         |_|                                                               
+    """
+    separator_length = max(len(line) for line in ul_art.splitlines())
+    separator = "=" * separator_length
+
+    print()
+    print(separator)
+    print(ul_art)
+    print(separator)
 
     # Load existing lecturers
     try:
@@ -15,37 +28,27 @@ def update_lecturer():
     except FileNotFoundError:
         print(f"Error: File '{LECTURERS_FILE}' not found.")
         return
-    except Exception as e:
-        print(f"Error: Failed to load lecturers. {e}")
-        return
-
-    # Display lecturers and select one to update
-    lecturer_options = {str(i + 1): lecturer.strip() for i, lecturer in enumerate(lecturers)}
-    lecturer_options[str(len(lecturers) + 1)] = 'Cancel'
 
     print("\n--- Existing Lecturers ---")
-    for idx, lecturer in lecturer_options.items():
-        if idx != str(len(lecturers) + 1): # Skip the "Cancel" option
-            print(f"{idx}. {lecturer}")
+    for idx, lecturer in enumerate(lecturers, start=1):
+        print(f"{idx}. {lecturer.strip()}")
+    print(f"{len(lecturers) + 1}. Cancel")
 
-    choice = input(f"\nSelect a lecturer to update (1-{len(lecturers)}) or type '{len(lecturers) + 1}' to cancel: ").strip()
-    if choice == str(len(lecturers) + 1):
-        print("Action canceled. Returning to manage lecturers menu.")
+    choice = input(f"\nSelect a lecturer to update (1-{len(lecturers)}) or type '{len(lecturers) + 1}' to cancel: ").strip().upper()
+    if not choice.isdigit() or not (1 <= int(choice) <= len(lecturers) + 1):
+        print("Invalid choice. Returning to manage lecturers menu.")
         return
 
-    if choice not in lecturer_options:
-        print("Invalid choice. Please try again.")
+    if int(choice) == len(lecturers) + 1:
+        print("Action canceled. Returning to manage students menu.")
         return
 
-    selected_lecturer = lecturer_options[choice]
-    print(f"Selected lecturer: {selected_lecturer}")
-
-    # Split lecturer record into fields
+    selected_lecturer = lecturers[int(choice) - 1]
     lecturer_fields = selected_lecturer.split(',')
     if len(lecturer_fields) != 5:
-        print("Error: Selected lecturer data is corrupted or invalid.")
+        print("Error: Selected lecturer data is corrupted.")
         return
-
+    
     lecturer_id, lecturer_name, department, email, contact_number = [field.strip() for field in lecturer_fields]
 
     # Update fields
