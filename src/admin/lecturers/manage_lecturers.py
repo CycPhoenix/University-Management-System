@@ -20,7 +20,7 @@ def manage_lecturers():
         print(separator)
         print(ml_art)
         print(separator)
-        print("\nSelect an option:")
+        print("Select an option:")
         print("1. Add Lecturer")
         print("2. Remove Lecturer")
         print("3. Update Lecturer")
