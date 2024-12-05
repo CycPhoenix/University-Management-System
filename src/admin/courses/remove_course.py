@@ -1,7 +1,7 @@
+import os
 from utils.load_data import load_data
 from utils.write_data import write_data
 from settings import FOUNDATION_FILE, DIPLOMA_FILE, UNDERGRADUATE_DIR, POSTGRADUATE_DIR
-import os
 
 def remove_course():
     """Remove a course from the system."""
@@ -106,20 +106,30 @@ def remove_course():
     for idx, course in enumerate(courses, 1):
         print(f"{idx}. {course.strip()}")
     print(f"{len(courses) + 1}. Cancel")
-    choice = input("\nSelect a course to remove: ").strip()
-
-    if choice == str(len(courses) + 1):
-        print("Action canceled. Returning to admin menu...")
-        return
-    if not choice.isdigit() or not (1 <= int(choice) <= len(courses)):
-        print("Invalid choice. Returning to admin menu...")
-        return
+    
+    while True:
+        choice = input("\nSelect a course to remove: ").strip()
+        if choice.isdigit or (1 <= int(choice) < (len(courses) + 1)):
+            break
+        elif choice == str(len(courses) + 1):
+            print("Action canceled. Returning to admin menu...")
+            return
+        else:
+            print("Invalid choice. Please enter a valid number.")
+            return
 
     selected_course = courses[int(choice) - 1]
-    print(f"Selected course: {selected_course.strip()}")
+    course_fields = selected_course.split(",")
+    course_code = course_fields[0]
+    course_name = course_fields[1]
+    course_credits = course_fields[2]
+
+    info = f"Code: {course_code} | Name: {course_name} | Credits: {course_credits}"
+
+    print(f"Selected course - {info}")
 
     # Confirmation removal
-    confirmation = input(f"Are you sure you want to remove '{selected_course.strip()}'? (yes/no): ").strip().lower()
+    confirmation = input(f"Are you sure you want to remove '{course_name}'? (yes/no): ").strip().lower()
     if confirmation != "yes":
         print("Action canceled. Returning to Manage Courses.")
         return
@@ -128,6 +138,6 @@ def remove_course():
     try:
         updated_courses = [course.strip() for course in courses if course.strip() != selected_course.strip()]
         write_data(file_path, updated_courses)
-        print(f"Course '{selected_course.strip()}' removed successfully.")
+        print(f"Course '{course_name}' removed successfully.")
     except Exception as e:
         print(f"An error occurred while removing the course: {e}")
