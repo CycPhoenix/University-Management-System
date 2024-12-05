@@ -58,20 +58,26 @@ def add_lecturer():
         print("\n--- Available Departments ---")
         for idx, department in enumerate(departments, start=1):
             print(f"{idx}.  {department.strip()}")
-        department_choice = input("Select a department: ").strip()
 
-        if department_choice.isdigit() and 1 <= int(department_choice) <= len(departments):
-            selected_department = departments[int(department_choice) - 1].strip()
-        else:
-            print("Invalid choice. Returning to manage students menu.")
-            return
+        while True:
+            department_choice = input("Select a department: ").strip()
+            if department_choice.isdigit() and 1 <= int(department_choice) <= len(departments):
+                selected_department = departments[int(department_choice) - 1].strip()
+                break
+            else:
+                print("Invalid choice. Please enter a valid number corresponding to a department.")
+                
     except FileNotFoundError:
         print(f"Error: File '{DEPARTMENTS_FILE}' not found.")
         return
 
     # Input Additional Details
     email = input("Enter the lecturer email (optional, press Enter to skip): ").strip()
+    if not email:
+        email = "N/A"
     contact_number = input("Enter the lecturer contact number (optional, press Enter to skip): ").strip()
+    if not contact_number:
+        contact_number = "N/A"
 
     # Confirm and Save Lecturer
     lecturer_details = f"{lecturer_id},{lecturer_name},{selected_department},{email},{contact_number}"
