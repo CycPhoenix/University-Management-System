@@ -11,7 +11,6 @@ def update_student():
     `___'|  _/\___|<___| |_| \___. <___/  |_| `___|\___|\___.|_|_| |_|  
          |_|                                                            
     """
-
     separator_length = max(len(line) for line in us_art.splitlines())
     separator = "=" * separator_length
 
