@@ -1,0 +1,25 @@
+APUMF2409ACC,Master of Accounting,50
+APUMF2409AFA,Master of Accounting in Forensic Analysis,50
+APUMF2409MBA,Master of Business Administration,50
+APUMF2409MBA(DL),Master of Business Administration with a specialism in Digital Leadership,50
+APUMF2409MBA(BA),Master of Business Administration with a specialism in Business Analytics,50
+APUMF2409MBA(SCM),Master of Business Administration with a specialism in Supply Chain Management,50
+APUMF2409MBA(HT),Master of Business Administration with a specialism in Hospitality and Tourism,50
+APUMF2409PM,Master of Project Management,50
+APUMF2409AS,Master of Science in Actuarial Science,50
+APUMF2409TM,Master of Technology Management,50
+APUMF2409ITM,MSc in Information Technology Management,50
+APUMF2409SE,MSc in Software Enginering,50
+APUMF2409CS,Master of Science in Computing,50
+APUMF2409AI,Master of Science in Artificial Intelligence,50
+APUMF2409CYS,Master of Science Cyber Security,50
+APUMF2409DT,Master of Science in Digital Transformation,50
+APUMF2409IBC,Master of Science in International Business Communications,50
+APUMF2409GMM,Master of Science in Global Marketing Management,50
+APUMF2409FIN,Master of Finance,50
+APUMF2409FIN(FINT),Master of Finance with a specialism in FinTech,50
+APUMF2409DSBA,MSc in Data Science and Business Analytics,50
+APUMF2409DIM,Master of Arts in Design Innovation Management,50
+APUMF2409LDT,Master of Education in Learning Design and Technology,50
+APUMF2409PHE,Master of Philosophy in Engineering,50
+APUMF2409PHM,Master of Philosophy in Management,50
