@@ -1,0 +1,12 @@
+UCDF2409ICT,Diploma in Information & Communication Technology,50
+UCDF2409ICT(SE),Diploma in Information & Communication Technology with a specialism in Software Engineering,50
+UCDF2409ICT(DI),Diploma in Information & Communication Technology with a specialism in Data Informatics,50
+UCDF2409ICT(ITR),Diploma in Information & Communication Technology with a specialism in Interactive Technology,50
+UCDF2409ACC,Diploma in Accounting,50
+UCDF2409BIT,Diploma in Business Information Technology,50
+UCDF2409BSA,Diploma in Business Administration,50
+UCDF2409HM,Diploma in Hotel Management,50
+UCDF2409EM,Diploma in Events Management,50
+UCDF2409IRS,Diploma in International Studies,50
+UCDF2409DSM,Diploma in in Design and Media,50
+UCDF2409ME,Diploma in Mechatronic Engineering,50
