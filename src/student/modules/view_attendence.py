@@ -7,7 +7,7 @@ def access_attendance_record(student_id):
     # Open the attendance.txt file
     with open(file_path, 'r') as file:
         records = file.readlines()
-    
+        
     print("Attendance Record")
     found = False
     for record in records:
