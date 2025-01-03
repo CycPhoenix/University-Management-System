@@ -1,6 +1,7 @@
 from admin.courses.view_all_courses import view_all_courses
 from student.modules.view_attendence import access_attendance_record
 from student.modules.view_grade import view_grades
+from student.modules.enroll_module import enroll_module
 
 
 def student_menu():
@@ -39,8 +40,12 @@ def student_menu():
         elif choice == '3':
             view_all_courses()
         elif choice == '4':
-            module_code = input("Enter module code to enroll: ")
-            enroll_in_module(student_id, module_code)
+                inputs = input("Enter your student ID and module code to enroll (e.g., TP085702 CS101): ").split()
+                if len(inputs) != 2:
+                 print("Invalid input. Please provide both your student ID and module code.")
+                else:
+                    student_id, module_code = inputs
+                    enroll_module(student_id, module_code)
         elif choice == '5':
             module_code = input("Enter module code to unenroll: ")
             unenroll_from_module(student_id, module_code)
