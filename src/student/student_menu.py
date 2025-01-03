@@ -2,7 +2,7 @@ from admin.courses.view_all_courses import view_all_courses
 from student.modules.view_attendence import access_attendance_record
 from student.modules.view_grade import view_grades
 from student.modules.enroll_module import enroll_module
-
+from student.modules.unenroll_module import unenroll_module
 
 def student_menu():
     """Main student menu to manage the university system."""
@@ -47,8 +47,12 @@ def student_menu():
                     student_id, module_code = inputs
                     enroll_module(student_id, module_code)
         elif choice == '5':
-            module_code = input("Enter module code to unenroll: ")
-            unenroll_from_module(student_id, module_code)
+            inputs = input("Enter your student ID and module code to unenroll (e.g., tp085702 CS101): ").split()
+            if len(inputs) != 2:
+                print("Invalid input. Please provide both your student ID and module code.")
+            else:
+                student_id, module_code = inputs
+                unenroll_module(student_id, module_code)
         elif choice == '6':
             print("Returning to main menu...")
             break

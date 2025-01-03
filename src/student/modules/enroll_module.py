@@ -1,6 +1,3 @@
-from utils.load_data import load_data
-from utils.write_data import write_data
-from settings import FOUNDATION_FILE, DIPLOMA_FILE, UNDERGRADUATE_DIR, POSTGRADUATE_DIR
 import os
 
 def enroll_module(student_id, module_code):
