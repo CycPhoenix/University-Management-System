@@ -23,4 +23,6 @@ FOUNDATION_FILE = os.path.join(ADMIN_DATA_DIR, 'courses', 'foundation.txt')
 DIPLOMA_FILE = os.path.join(ADMIN_DATA_DIR, 'courses', 'diploma.txt')
 UNDERGRADUATE_DIR = os.path.join(ADMIN_DATA_DIR, 'courses', 'undergraduate')
 POSTGRADUATE_DIR = os.path.join(ADMIN_DATA_DIR, 'courses', 'postgraduate')
+
+
 EXAMPLE_FILE = os.path.join(ADMIN_DATA_DIR, 'example.txt')
