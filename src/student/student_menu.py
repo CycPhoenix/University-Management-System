@@ -40,16 +40,16 @@ def student_menu():
         elif choice == '3':
             view_all_courses()
         elif choice == '4':
-                inputs = input("Enter your student ID and module code to enroll (e.g., TP085702 CS101): ").split()
-                if len(inputs) != 2:
-                 print("Invalid input. Please provide both your student ID and module code.")
-                else:
-                    student_id, module_code = inputs
-                    enroll_module(student_id, module_code)
-        elif choice == '5':
-            inputs = input("Enter your student ID and module code to unenroll (e.g., tp085702 CS101): ").split()
+            inputs = input("Enter your student ID and module code to enroll (e.g., tp085702 cs101): ").lower().split()
             if len(inputs) != 2:
                 print("Invalid input. Please provide both your student ID and module code.")
+            else:
+                student_id, module_code = inputs
+                enroll_module(student_id, module_code)
+        elif choice == '5':
+            inputs = input("Enter your student ID and module code to unenroll (e.g., tp085702 cs101): ").lower().split()
+            if len(inputs) != 2:
+             print("Invalid input. Please provide both your student ID and module code.")
             else:
                 student_id, module_code = inputs
                 unenroll_module(student_id, module_code)
