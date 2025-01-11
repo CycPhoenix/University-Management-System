@@ -10,7 +10,7 @@ def manage_lecturers():
     |  \  \ ___ ._ _  ___  ___  ___  | |   ___  ___ _| |_ _ _  _ _  ___  _ _  ___
     |     |<_> || ' |<_> |/ . |/ ._> | |_ / ._>/ | ' | | | | || '_>/ ._>| '_><_-<
     |_|_|_|<___||_|_|<___|\_. |\___. |___|\___.\_|_. |_| `___||_|  \___.|_|  /__/
-                      <___'                                                  
+                          <___'                                                  
     """
     separator_length = max(len(line) for line in ml_art.splitlines())
     separator = "=" * separator_length
