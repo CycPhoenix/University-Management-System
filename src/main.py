@@ -1,6 +1,7 @@
 from admin.admin_menu import admin_menu
 from student.student_menu import student_menu
 from accountant.accountant_menu import accountant_menu
+from registrar.registrar_menu import registrar_menu
 
 def main_menu():
     """Main menu to select system role."""
@@ -48,6 +49,8 @@ def main_menu():
             admin_menu()
         elif choice == '3':
             student_menu()
+        elif choice == '4':
+            registrar_menu()
         elif choice == '5':
             accountant_menu()
         elif choice == '6':
