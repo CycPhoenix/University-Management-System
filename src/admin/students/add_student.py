@@ -57,7 +57,7 @@ def add_student():
 
         print("\n--- Available Departments ---")
         for idx, department in enumerate(departments, start=1):
-            print(f"{idx}.  {department.strip()}")
+            print(f"{idx}. {department.strip()}")
 
         while True:
             department_choice = input("Select a department: ").strip()
@@ -70,14 +70,47 @@ def add_student():
     except FileNotFoundError:
         print(f"Error: File '{DEPARTMENTS_FILE}' not found.")
         return
+    
+    # Select Program
+    program_file = f"{selected_department.lower()}.txt"
+    try:
+        programs = load_data(program_file)
+        if not programs:
+            print(f"No programs found for department '{selected_department}'.")
+            return
+        
+        print(f"\n--- Available Programs for {selected_department} ---")
+        for idx, program in enumerate(programs, start=1):
+            program_name = program.split(',')[1] if ',' in program else program.strip()
+            print(f"{idx}. {program_name.strip()}")
+
+        while True:
+            program_choice = input("Select a program: ").strip()
+            if program_choice.isdigit() and 1 <= int(program_choice) <= len(programs):
+                selected_program = program[int(program_choice) - 1].strip()
+                break
+            else:
+                print("Invalid choice. Please enter a valid number corresponding to a program.")
+    except FileNotFoundError:
+        print(f"Error: Program file for '{selected_department}' not found at '{program_file}'.")
+        return
 
     # Input Additional Details
-    email = input("Enter the student email (optional, press Enter to skip): ").strip()
-    if not email:
-        email = "N/A"
-    contact_number = input("Enter the student contact number (optional, press Enter to skip): ").strip()
-    if not contact_number:
-        contact_number = "N/A"
+    while True:
+        email = input("Enter the student email (optional, press Enter to skip): ").strip()
+        if email and "@" not in email:
+            print("Invalid email address. Please try again.")
+        else:
+            email = email or "N/A"
+            break
+
+    while True:
+        contact_number = input("Enter the student contact number (optional, press Enter to skip): ").strip()
+        if contact_number and not contact_number.isdigit():
+            print("Invalid contact number. Please enter digits only.")
+        if not contact_number:
+            contact_number = contact_number or "N/A"
+            break
 
     # Combine Student Details
     student_details = f"{student_id},{student_name},{selected_department},{email},{contact_number}"
