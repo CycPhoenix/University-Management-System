@@ -72,15 +72,26 @@ def add_lecturer():
         return
 
     # Input Additional Details
-    email = input("Enter the lecturer email (optional, press Enter to skip): ").strip()
-    if not email:
-        email = "N/A"
-    contact_number = input("Enter the lecturer contact number (optional, press Enter to skip): ").strip()
-    if not contact_number:
-        contact_number = "N/A"
-
-    # Confirm and Save Lecturer
+    while True:
+        email = input("Enter the lecturer email (optional, press Enter to skip): ").strip()
+        if email and "@" not in email:
+            print("Invalid email address. Please try again.")
+        else:
+            email = email or "N/A"
+            break
+    
+    while True:
+        contact_number = input("Enter the lecturer contact number (optional, press Enter to skip): ").strip()
+        if contact_number and not contact_number.isdigit():
+            print("Invalid contact number. Please enter digits only.")
+        if not contact_number:
+            contact_number = contact_number or "N/A"
+            break
+    
+    # Cobine Lecturer Details
     lecturer_details = f"{lecturer_id},{lecturer_name},{selected_department},{email},{contact_number}"
+
+    # Save the Lecturer Details
     try:
         append_data(LECTURERS_FILE, lecturer_details)
         print(f"Lecturer '{lecturer_name}' added successfully!")
