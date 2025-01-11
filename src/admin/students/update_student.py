@@ -1,6 +1,7 @@
+import os
 from utils.load_data import load_data
 from utils.write_data import write_data
-from settings import STUDENTS_FILE
+from settings import STUDENTS_FILE, DEPARTMENTS_FILE, FOUNDATION_FILE, DIPLOMA_FILE, UNDERGRADUATE_DIR, POSTGRADUATE_DIR
 
 def update_student():
     """Update a student's details."""
@@ -28,43 +29,182 @@ def update_student():
     except FileNotFoundError:
         print(f"Error: File '{STUDENTS_FILE}' not found.")
         return
-
-    print("\n--- Existing Students ---")
-    for idx, student in enumerate(students, start=1):
-        print(f"{idx}. {student.strip()}")
-    print(f"{len(students) + 1}. Cancel")
-
-    choice = input(f"\nSelect a student to update (1-{len(students)}) or type '{len(students) + 1}' to cancel: ").strip().upper()
-    if not choice.isdigit() or not (1 <= int(choice) <= len(students) + 1):
-        print("Invalid choice. Returning to manage students menu.")
+    
+    # Search for the student by ID
+    student_id = input("Enter the Student ID to updates (or type 'Cancel' to exit): ").strip().upper()
+    if student_id.lower() == 'cancel':
+        print("Action canceled. Returning to registrar menu.")
         return
+    
+    # Find the student record
+    found = False
+    updated_students = []
+    for line in students:
+        student_data = line.strip().split(',')
+        if student_data[0] == student_id:
+            found = True
+            print(f"\nCurrent Details:\nID: {student_data[0]}\nName: {student_data[1]}\nDepartment: {student_data[2]}\nProgram: {student_data[3]}\nContact Number: {student_data[5]}")
 
-    if int(choice) == len(students) + 1:
-        print("Action canceled. Returning to manage students menu.")
+            # Update Name
+            new_name = input(f"Enter new Name (press Enter to keep current): ").strip() or student_data[1]
+            if not new_name:
+                new_name = student_data[1]
+
+            # Update Deparment
+            try:
+                departments = load_data(DEPARTMENTS_FILE)
+                if not departments:
+                    print("No deparments found in departments.txt.")
+                    return
+                
+                print("\n--- Available Departments ---")
+                for idx, department in enumerate(departments, start=1):
+                    print(f"{idx}. {department.strip()}")
+
+                while True:
+                    department_choice = input("Select a department (or press Enter to keep current): ").strip()
+                    if not department_choice:
+                        new_department = student_data[2]
+                        break
+                    if department_choice.isdigit() and 1 <= int(department_choice) <= len(departments):
+                        new_department = departments[int(department_choice) - 1].strip()
+                        break
+                    else:
+                        print("Invalid choice. Please enter a valid number corresponding to a department.")
+            except FileNotFoundError:
+                print(f"Error: File '{DEPARTMENTS_FILE}' not found.")
+                return
+            
+            # Update Program
+            if new_department in ["Foundation", "Diploma"]:
+                if new_department == "Foundation":
+                    file_path = os.path.join(FOUNDATION_FILE)
+                elif new_department == "Diploma":
+                    file_path = os.path.join(DIPLOMA_FILE)
+
+                try:
+                    programs = load_data(file_path)
+                    if not programs:
+                        print(f"No programs found in {new_department}.")
+                        return
+                    print(f"\n--- Available Programs in {new_department} ---")
+                    for idx, program in enumerate(programs, start=1):
+                        print(f"{idx}. {program.strip()}")
+
+                    while True:
+                        program_choice = input("Select a program (or press Enter to keep current): ").strip()
+                        if not program_choice:
+                            new_program = student_data[3]
+                            break
+                        if program_choice.isdigit() and 1 <= int(program_choice) <= len(programs):
+                            selected_line = programs[int(program_choice) - 1].strip()
+                            new_program = selected_line.split(',')[1]
+                            break
+                        else:
+                            print("Invalid choice. Please enter a valid number corresponding to a program.")
+                except FileNotFoundError:
+                    print(f"Error: File for {new_department} not found.")
+                    return
+                
+            if new_department in ["Undergraduate", "Postgraduate"]:
+                folder_path = UNDERGRADUATE_DIR if new_department == "Undergraduate" else POSTGRADUATE_DIR
+                try:
+                    categories = [f for f in os.listdir(folder_path) if f.endswith(".txt")]
+                    if not categories:
+                        print(f"No program categories found in {new_department}.")
+                        return
+                    
+                    print(f"\n--- Available Program Categories in {new_department} ---")
+                    for idx, category in enumerate(categories, start=1):
+                        print(f"{idx}. {category.replace('.txt', '').replace('_', ' ')}")
+
+                    while True:
+                        category_choice = input("Select a program (or press Enter to keep current): ").strip()
+                        if not category_choice:
+                            new_program = student_data[3]
+                            break
+                        if category_choice.isdigit() and 1 <= int(category_choice) <= len(categories):
+                            selected_category = categories[int(category_choice) - 1]
+                            category_path = os.path.join(folder_path, selected_category)
+                            programs = load_data(category_path)
+                            
+                            print(f"\n--- Available Programs in {selected_category.replace('.txt', '').replace('_', ' ')} ---")
+                            for idx, program in enumerate(programs, start=1):
+                                print(f"{idx}. {program.strip()}")
+
+                            while True:
+                                program_choice = input("Select a program (or press Enter to keep current): ").strip()
+                                if not program_choice:
+                                    new_program = student_data[3]
+                                    break
+                                if program_choice.isdigit() and 1 <= int(program_choice) <= len(programs):
+                                    selected_line = programs[int(program_choice) - 1].strip()
+                                    new_program = selected_line.split(',')[1]
+                                    break
+                                else:
+                                    print("Invalid choice. Please enter a valid number corresponding to a program.")
+                            break
+                        else:
+                            print("Invalid choice. Please enter a valid number corresponding to a category.")
+                except FileNotFoundError:
+                    print(f"Error: Directory for {new_department} not found.")
+                    return
+                
+            new_email = input(f"Enter new Email (press Enter to keep current): ").strip() or student_data[4]
+            if not new_email:
+                new_email = student_data[4]
+
+            new_contact_number = input(f"Enter new Contact Number (press Enter to keep current): ").strip() or student_data[5]
+            if not contact_number:
+                contact_number = student_data[5]
+            
+            # Append updated student data
+            updated_students.append(f"{student_data[0],{new_name},{new_department},{new_program},{new_email},{new_contact_number}}")
+        else:
+            updated_students.append(line)
+    if not found:
+        print(f"Student with ID '{student_id}' not found.")
         return
-
-    selected_student = students[int(choice) - 1]
-    student_fields = selected_student.split(',')
-    if len(student_fields) != 5:
-        print("Error: Selected student data is corrupted.")
-        return
-
-    student_id, student_name, department, email, contact_number = [field.strip() for field in student_fields]
-
-    # Update fields
-    new_id = input(f"Enter new Student ID (press Enter to keep '{student_id}'): ").strip().upper() or student_id
-    new_name = input(f"Enter new Name (press Enter to keep '{student_name}'): ").strip() or student_name
-    new_department = input(f"Enter new Department (press Enter to keep '{department}'): ").strip() or department
-    new_email = input(f"Enter new Email (press Enter to keep '{email}'): ").strip() or email
-    new_contact_number = input(f"Enter new Contact Number (press Enter to keep '{contact_number}'): ").strip() or contact_number
-
-    # Combine updated fields
-    updated_student = f"{new_id},{new_name},{new_department},{new_email},{new_contact_number}"
-
-    # Write updated data to the file
+    
+    # Save updated records
     try:
-        updated_students = [updated_student if student == selected_student else student for student in students]
         write_data(STUDENTS_FILE, updated_students)
-        print(f"Student '{new_name}' updated successfully!")
+        print(f"\nStudent record with ID '{student_id}' updated successfully.")
     except Exception as e:
         print(f"Error: Failed to update student. {e}")
+
+    # print("\n--- Existing Students ---")
+    # for idx, student in enumerate(students, start=1):
+    #     print(f"{idx}. {student.strip()}")
+    # print(f"{len(students) + 1}. Cancel")
+
+    # choice = input(f"\nSelect a student to update (1-{len(students)}) or type '{len(students) + 1}' to cancel: ").strip().upper()
+    # if not choice.isdigit() or not (1 <= int(choice) <= len(students) + 1):
+    #     print("Invalid choice. Returning to manage students menu.")
+    #     return
+
+    # if int(choice) == len(students) + 1:
+    #     print("Action canceled. Returning to manage students menu.")
+    #     return
+
+    # selected_student = students[int(choice) - 1]
+    # student_fields = selected_student.split(',')
+    # if len(student_fields) != 5:
+    #     print("Error: Selected student data is corrupted.")
+    #     return
+
+    # student_id, student_name, department, program, email, contact_number = [field.strip() for field in student_fields]
+
+    # new_email = input(f"Enter new Email (press Enter to keep '{email}'): ").strip() or email
+    # new_contact_number = input(f"Enter new Contact Number (press Enter to keep '{contact_number}'): ").strip() or contact_number
+
+    # # Combine updated fields
+    # updated_student = f"{new_id},{new_name},{new_department},{new_program},{new_email},{new_contact_number}"
+
+    # # Write updated data to the file
+    # try:
+    #     updated_students = [updated_student if student == selected_student else student for student in students]
+    #     write_data(STUDENTS_FILE, updated_students)
+    #     print(f"Student '{new_name}' updated successfully!")
+    # except Exception as e:
+    #     print(f"Error: Failed to update student. {e}")
