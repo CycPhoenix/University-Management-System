@@ -28,11 +28,37 @@ def remove_student():
     except FileNotFoundError:
         print(f"Error: File '{STUDENTS_FILE}' not found.")
         return
+    
+    student_data = []
+    for student in students:
+        student_fields = student.strip().split(',')
+        if len(student_fields) == 6:
+            student_data.append(student_fields)
+        else:
+            student_data.append(["[Corrupted Data]"])
+    
+    # Calculate column widths dynamically
+    col_widths = [15, 25, 25, 100, 30, 15]
+    headers = ['ID', 'Name', 'Department', 'Program', 'Email', 'Contact']
+
+    # Add indentation
+    indent = '   ' # Add 3 spaces of indentation
+
+    header_row = "".join(f"{header:<{width}}" for header, width in zip(headers, col_widths))
+    separator = "=" * len(header_row)
 
     print("--- Existing Students ---")
-    for idx, student in enumerate(students, start=1):
-        print(f"{idx}. {student.strip()}")
-    print(f"{len(students) + 1}. Cancel")
+    print(separator)
+    print(indent + header_row)
+    print(separator)
+    
+    for idx, student_fields in enumerate(student_data, start=1):
+        if len(student_fields) == 6:
+            row = "".join(f"{field:<{width}}" for field, width in zip(student_fields, col_widths))
+            print(f"{idx:<3}{row}")
+        else:
+            print(f"{idx:<3}[Corrupted Data]")
+    print(separator)
 
     while True:
         choice = input(f"\nSelect a student to remove (1-{len(students)}) or type '{len(students) + 1}' to cancel: ").strip()
