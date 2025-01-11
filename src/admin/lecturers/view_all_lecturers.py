@@ -3,7 +3,12 @@ from settings import LECTURERS_FILE
 
 def view_all_lecturers():
     """View all lecturers in the system."""
-    print("\n--- View All Lecturers ---")
+    val_art = r"""
+     _ _  _               ___  _  _   _               _                             
+    | | |<_> ___  _ _ _  | . || || | | |   ___  ___ _| |_ _ _  _ _  ___  _ _  ___
+    | ' || |/ ._>| | | | |   || || | | |_ / ._>/ | ' | | | | || '_>/ ._>| '_><_-<
+    |__/ |_|\___.|__/_/  |_|_||_||_| |___|\___.\_|_. |_| `___||_|  \___.|_|  /__/
+    """
 
     # Load lecturers data
     try:
@@ -13,9 +18,6 @@ def view_all_lecturers():
             return
     except FileNotFoundError:
         print(f"Error: File '{LECTURERS_FILE}' not found.")
-        return
-    except Exception as e:
-        print(f"Error: Failed to load lecturers. {e}")
         return
 
     # Parse lecturers into fields
@@ -36,9 +38,13 @@ def view_all_lecturers():
 
     # Print header
     header_row = "".join(f"{header:<{width}}" for header, width in zip(headers, col_widths))
-    print("=" * len(header_row))
+    separator = "=" * len(header_row)
+    print()
+    print(separator)
+    print(val_art)
+    print(separator)
     print(indent + header_row)
-    print("=" * len(header_row))
+    print(separator)
 
     # Print lecturer details
     for idx, lecturer_fields in enumerate(lecturer_data, start=1):
@@ -48,4 +54,4 @@ def view_all_lecturers():
         else:
             print(f"{idx:<3}[Corrupted Data]")
 
-    print("=" * len(header_row))
+    print(separator)
