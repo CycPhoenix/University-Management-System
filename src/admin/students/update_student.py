@@ -31,7 +31,7 @@ def update_student():
         return
     
     # Search for the student by ID
-    student_id = input("Enter the Student ID to updates (or type 'Cancel' to exit): ").strip().upper()
+    student_id = input("Enter the Student ID to update (or type 'Cancel' to exit): ").strip().upper()
     if student_id.lower() == 'cancel':
         print("Action canceled. Returning to registrar menu.")
         return
@@ -43,14 +43,14 @@ def update_student():
         student_data = line.strip().split(',')
         if student_data[0] == student_id:
             found = True
-            print(f"\nCurrent Details:\nID: {student_data[0]}\nName: {student_data[1]}\nDepartment: {student_data[2]}\nProgram: {student_data[3]}\nContact Number: {student_data[5]}")
+            print(f"\nCurrent Details:\nID: {student_data[0]}\nName: {student_data[1]}\nDepartment: {student_data[2]}\nProgram: {student_data[3]}\nEmail: {student_data[4]}\nContact Number: {student_data[5]}")
 
             # Update Name
             new_name = input(f"Enter new Name (press Enter to keep current): ").strip() or student_data[1]
             if not new_name:
                 new_name = student_data[1]
 
-            # Update Deparment
+            # Update Department
             try:
                 departments = load_data(DEPARTMENTS_FILE)
                 if not departments:
@@ -172,39 +172,3 @@ def update_student():
         print(f"\nStudent record with ID '{student_id}' updated successfully.")
     except Exception as e:
         print(f"Error: Failed to update student. {e}")
-
-    # print("\n--- Existing Students ---")
-    # for idx, student in enumerate(students, start=1):
-    #     print(f"{idx}. {student.strip()}")
-    # print(f"{len(students) + 1}. Cancel")
-
-    # choice = input(f"\nSelect a student to update (1-{len(students)}) or type '{len(students) + 1}' to cancel: ").strip().upper()
-    # if not choice.isdigit() or not (1 <= int(choice) <= len(students) + 1):
-    #     print("Invalid choice. Returning to manage students menu.")
-    #     return
-
-    # if int(choice) == len(students) + 1:
-    #     print("Action canceled. Returning to manage students menu.")
-    #     return
-
-    # selected_student = students[int(choice) - 1]
-    # student_fields = selected_student.split(',')
-    # if len(student_fields) != 5:
-    #     print("Error: Selected student data is corrupted.")
-    #     return
-
-    # student_id, student_name, department, program, email, contact_number = [field.strip() for field in student_fields]
-
-    # new_email = input(f"Enter new Email (press Enter to keep '{email}'): ").strip() or email
-    # new_contact_number = input(f"Enter new Contact Number (press Enter to keep '{contact_number}'): ").strip() or contact_number
-
-    # # Combine updated fields
-    # updated_student = f"{new_id},{new_name},{new_department},{new_program},{new_email},{new_contact_number}"
-
-    # # Write updated data to the file
-    # try:
-    #     updated_students = [updated_student if student == selected_student else student for student in students]
-    #     write_data(STUDENTS_FILE, updated_students)
-    #     print(f"Student '{new_name}' updated successfully!")
-    # except Exception as e:
-    #     print(f"Error: Failed to update student. {e}")
