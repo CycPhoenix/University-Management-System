@@ -161,14 +161,14 @@ def add_course():
 
         # Check for duplicate course codes
         existing_courses = load_data(file_path)
-        if any(new_course_code.lower() == line.split(',')[0].strip().lower() for line in existing_courses):
+        if any(new_course_code.lower() == line.split(' | ')[0].strip().lower() for line in existing_courses):
             print(f"Course code '{new_course_code}' already exists. Please enter a new course code.")
             continue
         break
 
     # Append course to the file
     try:
-        course_data = f"{new_course_code},{new_course_name},{new_course_credits}"
+        course_data = f"{new_course_code} | {new_course_name} | {new_course_credits}"
         append_data(file_path, course_data)
         print(f"Course '{new_course_name}' added successfully to {selected_course_type}!")
     except Exception as e:
