@@ -1,3 +1,4 @@
-tp077579,Lisa,School of Computing,,test
-tp072364,Ban Cong Yin Brosnan,School of Computing,banbrosnan0403@gmail.com,0123456789
-TP076694,Amrit Jivan Singh,School of Computing,amrit@gmail.com,
+TP098878,Brian Ban,Undergraduate,Bachelor of Banking and Finance (Hons) with a specialism in Financial Technology,N/A,N/A
+TP099999,b,Foundation,Foundation in Architecture & Design,N/A,N/A
+TP099998,bbb,Foundation,Foundation in Computing & Technology,N/A,N/A
+TP099997,raaj,Undergraduate,Bachelor of Accounting and Finance (Honours),N/A,N/A
