@@ -24,14 +24,14 @@ def view_all_students():
     student_data = []
     for student in students:
         student_fields = student.strip().split(',')
-        if len(student_fields) == 5:
+        if len(student_fields) == 6:
             student_data.append(student_fields)
         else:
             student_data.append(["[Corrupted Data]"])
 
     # Calculate column widths dynamically
-    col_widths = [15, 25, 25, 30, 15] # Adjust widths as needed
-    headers = ['ID', 'Name', 'Department', 'Email', 'Contact']
+    col_widths = [15, 25, 25, 100, 30, 15] # Adjust widths as needed
+    headers = ['ID', 'Name', 'Department', 'Program', 'Email', 'Contact']
 
     # Add indentation
     indent = '   ' # Add 3 spaces of indentation
@@ -48,7 +48,7 @@ def view_all_students():
 
     # Print student details
     for idx, student_fields in enumerate(student_data, start=1):
-        if len(student_fields) == 5:
+        if len(student_fields) == 6:
             row = "".join(f"{field:<{width}}" for field, width in zip(student_fields, col_widths))
             print(f"{idx:<3}{row}")
         else:
