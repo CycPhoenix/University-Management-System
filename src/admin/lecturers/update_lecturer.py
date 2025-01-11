@@ -1,6 +1,7 @@
+import os
 from utils.load_data import load_data
 from utils.write_data import write_data
-from settings import LECTURERS_FILE
+from settings import LECTURERS_FILE, DEPARTMENTS_FILE
 
 def update_lecturer():
     """Update a lecturer's details."""
@@ -29,42 +30,79 @@ def update_lecturer():
         print(f"Error: File '{LECTURERS_FILE}' not found.")
         return
 
-    print("\n--- Existing Lecturers ---")
-    for idx, lecturer in enumerate(lecturers, start=1):
-        print(f"{idx}. {lecturer.strip()}")
-    print(f"{len(lecturers) + 1}. Cancel")
-
-    choice = input(f"\nSelect a lecturer to update (1-{len(lecturers)}) or type '{len(lecturers) + 1}' to cancel: ").strip().upper()
-    if not choice.isdigit() or not (1 <= int(choice) <= len(lecturers) + 1):
-        print("Invalid choice. Returning to manage lecturers menu.")
-        return
-
-    if int(choice) == len(lecturers) + 1:
-        print("Action canceled. Returning to manage students menu.")
-        return
-
-    selected_lecturer = lecturers[int(choice) - 1]
-    lecturer_fields = selected_lecturer.split(',')
-    if len(lecturer_fields) != 5:
-        print("Error: Selected lecturer data is corrupted.")
+    # Search for the lecturer by ID
+    lecturer_id = input("Enter the Lecturer ID to update (or type 'Cancel' to exit): ").strip().upper()
+    if lecturer_id.lower() == 'cancel':
+        print("Action canceled. Returning to admin menu.")
         return
     
-    lecturer_id, lecturer_name, department, email, contact_number = [field.strip() for field in lecturer_fields]
+    # Find the lecturer record
+    found = False
+    updated_lecturers = []
+    for line in lecturers:
+        lecturer_data = line.strip().split(',')
+        if lecturer_data[0] == lecturer_id:
+            found = True
+            print(f"\nCurrent Details:\nID: {lecturer_data[0]}\nName: {lecturer_data[1]}\nDepartment: {lecturer_data[2]}\nEmail: {lecturer_data[3]}\nContact Number: {lecturer_data[4]}")
 
-    # Update fields
-    new_id = input(f"Enter new Lecturer ID (press Enter to keep '{lecturer_id}'): ").strip() or lecturer_id
-    new_name = input(f"Enter new Name (press Enter to keep '{lecturer_name}'): ").strip() or lecturer_name
-    new_department = input(f"Enter new Department (press Enter to keep '{department}'): ").strip() or department
-    new_email = input(f"Enter new Email (press Enter to keep '{email}'): ").strip() or email
-    new_contact_number = input(f"Enter new Contact Number (press Enter to keep '{contact_number}'): ").strip() or contact_number
+            # Update Name
+            new_name = input(f"Enter new Name (press Enter to keep current): ").strip() or lecturer_data[1]
+            if not new_name:
+                new_name = lecturer_data[1]
+            
+            # Update Department
+            try:
+                departments = load_data(DEPARTMENTS_FILE)
+                if not departments:
+                    print("No departments found in departments.txt.")
+                    return
+                
+                print("\n--- Available Departments ---")
+                for idx, department in enumerate(departments, start=1):
+                    print(f"{idx}. {department.strip()}")
+                
+                while True:
+                    department_choice = input("Select a department (or press Enter to keep current): ").strip()
+                    if not department_choice:
+                        new_department = lecturer_data[2]
+                        break
+                    if department_choice.isdigit() and 1 <= int(department_choice) <= len(departments):
+                        new_department = departments[int(department_choice) - 1].strip()
+                        break
+                    else:
+                        print("Invalid choice. Please enter a valid number corresponding to a department.")
+            except FileNotFoundError:
+                print(f"Error: File '{DEPARTMENTS_FILE}' not found.")
+                return
+            
+            while True:
+                new_email = input(f"Enter new Email (press Enter to keep current): ").strip() or lecturer_data[3]
+                if new_email and "@" not in new_email:
+                    print("Invalid email address. Please try again.")
+                else:
+                    new_email = new_email or "N/A"
+                    break
+            
+            while True:
+                new_contact_number = input("Enter new Contact Number (press Enter to keep current): ").strip() or lecturer_data[4]
+                if new_contact_number and not new_contact_number.isdigit():
+                    print("Invalid contact number. Please enter digits only.")
+                if not new_contact_number:
+                    new_contact_number = new_contact_number or "N/A"
+                    break
+            
+            # Append updated lecturer data
+            updated_lecturers.append(f"{lecturer_data[0]},{new_name},{new_department},{new_email},{new_contact_number}")
+        else:
+            updated_lecturers.append(line)
 
-    # Combine updated fields
-    updated_lecturer = f"{new_id},{new_name},{new_department},{new_email},{new_contact_number}"
+    if not found:
+        print(f"Lecturer with ID '{lecturer_id}' not found.")
+        return
 
-    # Write updated data to the file
+    # Save updated records
     try:
-        updated_lecturers = [updated_lecturer if lecturer.strip() == selected_lecturer else lecturer.strip() for lecturer in lecturers]
         write_data(LECTURERS_FILE, updated_lecturers)
-        print(f"Lecturer '{new_name}' updated successfully!")
+        print(f"\nLecturer record with ID '{lecturer_id}' updated successfully!")
     except Exception as e:
         print(f"Error: Failed to update lecturer. {e}")
