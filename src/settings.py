@@ -18,7 +18,11 @@ LECTURERS_FILE = os.path.join(ADMIN_DATA_DIR, 'lecturers.txt')
 LECTURER_COURSES_FILE = os.path.join(ADMIN_DATA_DIR, 'lecturer_courses.txt')
 STUDENTS_FILE = os.path.join(ADMIN_DATA_DIR, 'students.txt')
 
+COURSE_DIR = os.path.join(ADMIN_DATA_DIR, 'courses')
+MODULES_DIR = os.path.join(ADMIN_DATA_DIR, 'modules_file')
+
 DEPARTMENTS_FILE = os.path.join(ADMIN_DATA_DIR, 'departments.txt')
+
 FOUNDATION_FILE = os.path.join(ADMIN_DATA_DIR, 'courses', 'foundation.txt')
 DIPLOMA_FILE = os.path.join(ADMIN_DATA_DIR, 'courses', 'diploma.txt')
 UNDERGRADUATE_DIR = os.path.join(ADMIN_DATA_DIR, 'courses', 'undergraduate')
@@ -26,3 +30,8 @@ POSTGRADUATE_DIR = os.path.join(ADMIN_DATA_DIR, 'courses', 'postgraduate')
 
 
 EXAMPLE_FILE = os.path.join(ADMIN_DATA_DIR, 'example.txt')
+
+MFOUNDATION_FILE = os.path.join(ADMIN_DATA_DIR, 'modules_file', 'foundation.txt')
+MDIPLOMA_FILE = os.path.join(ADMIN_DATA_DIR, 'modules_file', 'diploma.txt')
+MUNDERGRADUATE_DIR = os.path.join(ADMIN_DATA_DIR, 'modules_file', 'undergraduate')
+MPOSTGRADUATE_DIR = os.path.join(ADMIN_DATA_DIR, 'modules_file', 'postgraduate')
