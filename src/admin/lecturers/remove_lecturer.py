@@ -28,11 +28,37 @@ def remove_lecturer():
     except FileNotFoundError:
         print(f"Error: File '{LECTURERS_FILE}' not found.")
         return
+    
+    lecturer_data = []
+    for lecturer in lecturers:
+        lecturer_fields = lecturer.strip().split(',')
+        if len (lecturer_fields) == 5:
+            lecturer_data.append(lecturer_fields)
+        else:
+            lecturer_data.append(["[Corrupted Data]"])
+    
+    # Calculate column widths dynamically
+    col_widths = [15, 25, 25, 30, 15]
+    headers = ['ID', 'Name', 'Department', 'Email', 'Contact']
+
+    # Add indentation
+    indent = '   ' # Add 3 spaces of indentation
+
+    header_row = "".join(f"{header:<{width}}" for header, width in zip(headers, col_widths))
+    separator = "=" * len(header_row)
 
     print("--- Existing Lecturers ---")
-    for idx, lecturer in enumerate(lecturers, start=1):
-        print(f"{idx}. {lecturer.strip()}")
-    print(f"{len(lecturers) + 1}. Cancel")
+    print(separator)
+    print(indent + header_row)
+    print(separator)
+
+    for idx, lecturer_fields in enumerate(lecturer_data, start=1):
+        if len(lecturer_fields) == 5:
+            row = "".join(f"{field:<{width}}" for field, width in zip(lecturer_fields, col_widths))
+            print(f"{idx:<3}{row}")
+        else:
+            print(f"{idx:<3}[Corrupted Data]")
+    print(separator)
 
     while True:
         choice = input(f"\nSelect a lecturer to remove (1-{len(lecturers)}) or type '{len(lecturers) + 1}' to cancel: ").strip()
@@ -45,7 +71,7 @@ def remove_lecturer():
             print("Invalid choice. Please enter a valid number.")
             return
 
-    selected_lecturer = lecturers[int(choice) - 1].strip()
+    selected_lecturer = lecturers[int(choice) - 1]
     lecturer_fields = selected_lecturer.split(",") # Split the lecturer's details into fields
     lecturer_id = lecturer_fields[0] if len(lecturer_fields) > 0 else "N/A"
     lecturer_name = lecturer_fields[1] if len(lecturer_fields) > 1 else "N/A"
