@@ -33,7 +33,7 @@ def update_student():
     # Search for the student by ID
     student_id = input("Enter the Student ID to update (or type 'Cancel' to exit): ").strip().upper()
     if student_id.lower() == 'cancel':
-        print("Action canceled. Returning to registrar menu.")
+        print("Action canceled. Returning to admin menu.")
         return
     
     # Find the student record
