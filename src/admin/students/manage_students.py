@@ -25,7 +25,7 @@ def manage_students():
         print("2. Remove Student")
         print("3. Update Student")
         print("4. View All Students")
-        print("5: Back to Admin Menu")
+        print("5. Back to Admin Menu")
 
         choice = input("\nEnter your choice: ").strip()
 
