@@ -1,2 +1,2 @@
-TP979237,bann,School of Diploma,N/A,N/A
-TP1723971,9123,School of Foundation,N/A,N/A
+TP979237,bann,Diploma,N/A,N/A
+TP1723971,9123,Foundation,N/A,N/A
