@@ -3,3 +3,5 @@ TP012346,Jane Smith,Degree,3000,500
 TP012347,Bob Johnson,PhD,4000,2000
 TP012348,Alice Brown,Diploma,1500,0
 TP012349,Tom White,Foundation,1000,500
+TP050505,Raaju,Degree,2500.0,0.0
+TP210505,Raajshreedhar,PhD,3150.0,850.0
