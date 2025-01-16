@@ -1,4 +1,5 @@
 from admin.admin_menu import admin_menu
+from lecturer.lecture_menu import lecturer_menu
 from student.student_menu import student_menu
 from accountant.accountant_menu import accountant_menu
 from registrar.registrar_menu import registrar_menu
@@ -47,6 +48,8 @@ def main_menu():
 
         if choice == '1':
             admin_menu()
+        elif choice == '2':
+            lecturer_menu()
         elif choice == '3':
             student_menu()
         elif choice == '4':
