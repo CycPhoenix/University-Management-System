@@ -35,3 +35,4 @@ MFOUNDATION_FILE = os.path.join(ADMIN_DATA_DIR, 'modules_file', 'foundation.txt'
 MDIPLOMA_FILE = os.path.join(ADMIN_DATA_DIR, 'modules_file', 'diploma.txt')
 MUNDERGRADUATE_DIR = os.path.join(ADMIN_DATA_DIR, 'modules_file', 'undergraduate')
 MPOSTGRADUATE_DIR = os.path.join(ADMIN_DATA_DIR, 'modules_file', 'postgraduate')
+ASSIGNED_MODULES_FILE = os.path.join(ADMIN_DATA_DIR, 'assigned_modules.txt')
