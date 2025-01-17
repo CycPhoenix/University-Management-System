@@ -1,3 +1,4 @@
+from lecturer.assign_modules import assign_modules
 from lecturer.view_assigned_modules import view_assigned_modules
 from lecturer.record_grades import record_grades
 from lecturer.view_student_list import view_student_list
@@ -8,25 +9,28 @@ from lecturer.view_student_grades import view_student_grades
 def lecturer_menu():
     while True:
         print("\nLecturer Menu:")
-        print("1. View Assigned Modules")
-        print("2. Record Grades")
-        print("3. View Student List")
-        print("4. Track Attendance")
-        print("5. View Student Grades")
-        print("6. Exit")
+        print("1. Assign Modules")
+        print("2. View Assigned Modules")
+        print("3. Record Grades")
+        print("4. View Student List")
+        print("5. Track Attendance")
+        print("6. View Student Grades")
+        print("7. Back to Main Menu")
         choice = input("Select an option: ")
 
         if choice == '1':
-            view_assigned_modules()
+            assign_modules()
         elif choice == '2':
-            record_grades()
+            view_assigned_modules()
         elif choice == '3':
-            view_student_list()
+            record_grades()
         elif choice == '4':
-            track_attendance()
+            view_student_list()
         elif choice == '5':
-            view_student_grades()
+            track_attendance()
         elif choice == '6':
+            view_student_grades()
+        elif choice == '7':
             print("Exiting Lecturer Menu.")
             break
         else:
