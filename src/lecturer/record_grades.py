@@ -27,7 +27,7 @@ def get_letter_grade(score):
 
 def record_grades():
     """Allows the lecturer to record grades for students in a specific module."""
-    print("--- Record Grades ---")
+    print("\n--- Record Grades ---")
 
     # Validate Module Selection
     try:
