@@ -1,18 +1,18 @@
-English for Academic Purposes
-Communication Skills
-Personal Development & Study Methods
-Essentials of Web Applications
-Mathematics
-Introduction to Business
-Funamental of Finance
-Global Business Trends
-Public Speaking in English
-Academic Research Skills
-Economics for Business
-Perspectives in Technology
-Further Mathematics
-Co-Curricular
-Principles of Accounts
-Discovering Media in the Digital Age
-Psychology & Behavioral Science
-Fundamentals of Hospitality and Tourism Industry
+EAP,English for Academic Purposes
+COS,Communication Skills
+PDSM,Personal Development & Study Methods
+EWA,Essentials of Web Applications
+MM,Mathematics
+ITB,Introduction to Business
+FF,Funamental of Finance
+GBT,Global Business Trends
+PSE,Public Speaking in English
+ARS,Academic Research Skills
+ECO,Economics for Business
+PT,Perspectives in Technology
+FM,Further Mathematics
+CC,Co-Curricular
+PA,Principles of Accounts
+DCDA,Discovering Media in the Digital Age
+PBS,Psychology & Behavioral Science
+FHTI,Fundamentals of Hospitality and Tourism Industry
