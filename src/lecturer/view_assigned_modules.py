@@ -1,50 +1,51 @@
 import os
 from utils.load_data import load_data
-from settings import MODULES_DIR, LECTURERS_FILE
+from settings import ASSIGNED_MODULES_FILE, LECTURERS_FILE
 
 def view_assigned_modules():
     """Displays the modules assigned to the current lecturer."""
-    print("\n--- View Assigned MOdules ---")
+    print("\n--- View Assigned Modules ---")
 
     # Validate Lecturer ID
-    lecturer_id = input("Enter your Lecturer ID: ").strip()
+    lecturer_id = input("Enter your Lecturer ID: ").strip().upper()
     try:
         lecturers = load_data(LECTURERS_FILE)
         if not lecturers:
             print("No lecturers found. Please ensure lecturers.txt is populated.")
             return
-        
-        if not any(lecturer_id == lecturer.split(',')[0] for lecturer in lecturers):
-            print(f"Lecturer iD '{lecturer_id}' not found. Please try again.")
+
+        # Validate lecturer entry
+        valid_lecturers = [lecturer.split(',') for lecturer in lecturers if len(lecturer.split(',')) >= 3]
+        if not any(lecturer_id == lecturer[0].strip() for lecturer in valid_lecturers):
+            print(f"Lecturer ID '{lecturer_id}' not found. Please try again.")
             return
     except FileNotFoundError:
-        print(f"Error: '{lecturer_id}' not found.")
+        print(f"Error: '{LECTURERS_FILE}' not found.")
         return
-    
-    # Retrieve Modules from MODULES_DIR
+
+    # Retrieve Assigned Modules
     try:
-        categories = ["foundation.txt", "diploma.txt", "undergraduate.txt", "postgraduate.txt"]
-        assigned_modules = []
-
-        for category in categories:
-            module_file = os.path.join(MODULES_DIR, category)
-            if not os.path.exists(module_file):
-                continue
-        
-        modules = load_data(MODULES_DIR)
-        for module in modules:
-            mod_fields = module.strip().split(',')
-            mod_id, mod_name, lecturer = mod_fields[:3]
-            if lecturer.strip() == lecturer_id:
-                assigned_modules.append((mod_id, mod_name, category.replace('.txt', '').capitalize()))
-
+        assigned_modules = load_data(ASSIGNED_MODULES_FILE)
         if not assigned_modules:
+            print(f"No modules have been assigned to any lecturer yet.")
+            return
+
+        lecturer_modules = [
+            module.strip().split(',') for module in assigned_modules if module.strip().split(',')[2] == lecturer_id
+        ]
+
+        if not lecturer_modules:
             print(f"No modules assigned to Lecturer ID '{lecturer_id}'.")
             return
-        
+
         # Display Assigned Modules
-        print(f"\nModules Assigned to Lecutere ID `{lecturer_id}`:")
-        for idx, (mod_id, mod_name, category) in enumerate(assigned_modules, start=1):
-            print(f"{idx}. {mod_id} - {mod_name} (Category: {category})")
+        print(f"\nModules Assigned to Lecturer ID '{lecturer_id}':")
+        print(f"{'Module ID':<15}{'Module Name':<40}")
+        print("=" * 55)
+        for module in lecturer_modules:
+            mod_id, mod_name, _ = module
+            print(f"{mod_id:<15}{mod_name:<40}")
+    except FileNotFoundError:
+        print(f"Error: '{ASSIGNED_MODULES_FILE}' not found.")
     except Exception as e:
         print(f"Error retrieving modules: {e}")
