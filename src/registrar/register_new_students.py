@@ -76,7 +76,7 @@ def register_new_students():
     # Select Program
     if selected_department in ["Foundation", "Diploma"]:
         # Single file programs
-        file_path = os.path.join(FOUNDATION_FILE)
+        file_path = FOUNDATION_FILE if selected_department == 'Foundation' else DIPLOMA_FILE
         try:
             programs = load_data(file_path)
             if not programs:
