@@ -1,8 +1,9 @@
 import os
+from settings import ENROLLMENTS_FILE
 
 def unenroll_module(student_id, module_code):
     # Construct the path to enrollments.txt
-    file_path = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'data', 'admin_data', 'enrollments.txt')
+    file_path = ENROLLMENTS_FILE
 
     # Check if the file exists
     if not os.path.exists(file_path):
