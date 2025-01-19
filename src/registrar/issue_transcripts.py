@@ -80,4 +80,3 @@ def issue_transcripts(student_id):
         print("Average Grade: N/A")
 
     print("\nTranscript generation completed.")
-    
