@@ -1,0 +1,33 @@
+MB,Managing Business
+PS,Practical Skills
+AIS,Accounting Information System
+FA1,Financial Accounting 1
+PC,Professional Communication
+QM,Quantitive Methods
+BE,Business Economics
+SM,Satistical Methods
+FA2, Financial Accounting 2
+BL,Business Law
+CA,Cost Accouting
+FA3,Financial Accounting 3
+FSF,Financial System and Fintech
+BT,Basic Taxation
+FA4,Financial Accounting 4
+ISA,Introduction to Sap Erp System in Accounting
+PAT,Principles of Audit and Technology
+PBF,Principles of Banking and Finance
+ARS,Academic Research Skills
+AEC,Appreciation of Ethics and Civilisation
+BMK,Bahasa Melayu Komunikasi
+CA,Computer Architecture
+DGTIN,Digital Thinking and Innovation
+MSC,Mathematics and Statistics for Computing
+DM,Database Management
+ISCC,Information System with Cloud Concept
+OS,Operating Systems
+PYP,Programming with Python
+ADM,Algebra and Discreate Mathematics
+FIXD,Fundamentals of UIUX Design
+IAC,Integrity and Anti Corruption
+OOP,Object Oriented Programming
+SAD, System Analytics & Design
