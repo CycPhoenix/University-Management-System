@@ -1,7 +1,7 @@
 import os
 from utils.append_data import append_data
 from utils.load_data import load_data
-from settings import STUDENTS_FILE, DEPARTMENTS_FILE
+from settings import STUDENTS_FILE, DEPARTMENTS_FILE, FOUNDATION_FILE, DIPLOMA_FILE, UNDERGRADUATE_DIR, POSTGRADUATE_DIR
 
 def add_student():
     """Add a new student to the system."""
@@ -72,28 +72,68 @@ def add_student():
         return
     
     # Select Program
-    program_file = f"{selected_department.lower()}.txt"
-    try:
-        programs = load_data(program_file)
-        if not programs:
-            print(f"No programs found for department '{selected_department}'.")
-            return
-        
-        print(f"\n--- Available Programs for {selected_department} ---")
-        for idx, program in enumerate(programs, start=1):
-            program_name = program.split(',')[1] if ',' in program else program.strip()
-            print(f"{idx}. {program_name.strip()}")
+    if selected_department in ['Foundation', 'Diploma']:
+        program_file = FOUNDATION_FILE if selected_department == 'Foundation' else DIPLOMA_FILE
+        try:
+            programs = load_data(program_file)
+            if not programs:
+                print(f"No programs found for department '{selected_department}'.")
+                return
+            
+            print(f"\n--- Available Programs for {selected_department} ---")
+            for idx, program in enumerate(programs, start=1):
+                program_name = program.split(',')[1] if ',' in program else program.strip()
+                print(f"{idx}. {program_name.strip()}")
 
-        while True:
-            program_choice = input("Select a program: ").strip()
-            if program_choice.isdigit() and 1 <= int(program_choice) <= len(programs):
-                selected_program = program[int(program_choice) - 1].strip()
-                break
-            else:
-                print("Invalid choice. Please enter a valid number corresponding to a program.")
-    except FileNotFoundError:
-        print(f"Error: Program file for '{selected_department}' not found at '{program_file}'.")
-        return
+            while True:
+                program_choice = input("Select a program: ").strip()
+                if program_choice.isdigit() and 1 <= int(program_choice) <= len(programs):
+                    selected_line = programs[int(program_choice) - 1].strip()
+                    selected_program = selected_line.strip(',')[1]
+                    break
+                else:
+                    print("Invalid choice. Please enter a valid number corresponding to a program.")
+                    return
+        except FileNotFoundError:
+            print(f"Error: Program file for '{selected_department}' not found at '{program_file}'.")
+            return
+    elif selected_department in ['Undergraduate', 'Postgraduate']:
+        program_path = UNDERGRADUATE_DIR if selected_department == 'Undergraduate' else POSTGRADUATE_DIR
+        try:
+            categories = [f for f in os.listdir(program_path) if f.endswith(".txt")]
+            if not categories:
+                print(f"No programs categories found in {selected_department}.")
+                return
+            
+            print(f"\n--- Available Program Categories in {selected_department} ---")
+            for idx, category in enumerate(categories, start=1):
+                print(f"{idx}. {category.strip()}")
+
+            while True:
+                category_choice = input("Select a category: ").strip()
+                if category_choice.isdigit() and 1 <= int(category_choice) <= len(categories):
+                    selected_category = categories[int(category_choice) - 1]
+                    category_path = os.path.join(program_path, selected_category)
+                    programs = load_data(category_path)
+
+                    print(f"\n--- Available Programs in {selected_category.replace('.txt', '').replace('_', ' ')} ---")
+                    for idx, program in enumerate(programs, start=1):
+                        print(f"{idx}. {program.strip()}")
+
+                    while True:
+                        program_choice = input("Select a program: ").strip()
+                        if program_choice.isdigit() and 1 <= int(program_choice) <= len(programs):
+                            selected_line = programs[int(program_choice) - 1].strip()
+                            selected_program = selected_line.split(',')[1]
+                            break
+                        else:
+                            print("Invalid choice. Please enter a valid number corresponding to a program.")
+                    break
+                else:
+                    print("Invalid choice. Please enter a valid number corresponsing to a category.")
+        except FileNotFoundError:
+            print(f"Error: Directory for {selected_department} not found.")
+            return
 
     # Input Additional Details
     while True:
@@ -113,7 +153,7 @@ def add_student():
             break
 
     # Combine Student Details
-    student_details = f"{student_id},{student_name},{selected_department},{email},{contact_number}"
+    student_details = f"{student_id},{student_name},{selected_department},{selected_program},{email},{contact_number}"
 
     # Save the Student Details
     try:
