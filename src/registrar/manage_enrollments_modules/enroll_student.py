@@ -1,9 +1,9 @@
 import os
 from utils.load_data import load_data
 from utils.write_data import write_data
-from settings import ENROLLMENTS_FILE, MODULES_DIR, MFOUNDATION_FILE, MDIPLOMA_FILE, MUNDERGRADUATE_DIR, MPOSTGRADUATE_DIR, STUDENTS_FILE
+from settings import ENROLLMENTS_FILE, MFOUNDATION_FILE, MDIPLOMA_FILE, MUNDERGRADUATE_FILE, MPOSTGRADUATE_FILE, STUDENTS_FILE
 
-def enroll_student(student_id, enrollments, COURSE_DIR):
+def enroll_student(student_id, enrollments):
     """Enroll a student in a module."""
     # Load students file to determine the course type
     try:
@@ -12,7 +12,7 @@ def enroll_student(student_id, enrollments, COURSE_DIR):
         print(f"Error: File '{STUDENTS_FILE}' not found.")
         return
     
-    # Find the sutdent in the file
+    # Find the student in the file
     student_record = None
     for line in students:
         if line.startswith(student_id):
@@ -35,49 +35,50 @@ def enroll_student(student_id, enrollments, COURSE_DIR):
     try:
         enrollments = load_data(ENROLLMENTS_FILE)
     except FileNotFoundError:
-        enrollments = [] # If no enrollment file, start fresh
+        enrollments = [] # Start fresh if no enrollment file exists
 
-    # Determine the path based on the course type
-    if course_type.lower() in ["foundation", "diploma"]:
-        # Single file for Foundation and Diploma
-        module_file = os.path.join(MODULES_DIR, f"{course_type.lower()}.txt")
-        try:
-            modules = load_data(module_file)
-        except FileNotFoundError:
-            print(f"Error: File '{module_file}' not found.")
-            return
-    
-    elif course_type.lower() in ["undergraduate", "postgraduate"]:
-        # Folder-based for Undergraduate and Postgraduate
-        folder_path = os.path.join(MODULES_DIR, course_type.lower())
-        try:
-            # Find the program file for the student
-            category_file = f"{program.replace(' ', '_').lower()}.txt"
-            module_file = os.path.join(folder_path, category_file)
-            modules = load_data(module_file)
-        except FileNotFoundError:
-            print(f"Error: Program file '{category_file}' not found in '{folder_path}'.")
-            return
+    module_file = None
+    if course_type.lower() == "foundation":
+        module_file = MFOUNDATION_FILE
+    elif course_type.lower() == "diploma":
+        module_file = MDIPLOMA_FILE
+    elif course_type.lower() == "undergraduate":
+        module_file = MUNDERGRADUATE_FILE
+    elif course_type.lower() == "postgraduate":
+        module_file = MPOSTGRADUATE_FILE
     else:
         print(f"Error: Invalid course type '{course_type}' for student.")
         return
+
+    # Load modules
+    try:
+        modules = load_data(module_file)
+        if not modules:
+            print(f"No modules found in '{module_file}'.")
+            return
+    except FileNotFoundError:
+        print(f"Error: File '{module_file}' not found.")
+        return
     
     # Display available modules
-    print("--- Available Modules ---")
+    print("\n--- Available Modules ---")
     for idx, module in enumerate(modules, start=1):
-        print(f"{idx}. {module.strip()}")
+        module_details = module.strip().split(',')
+        module_code = module_details[0] if len(module_details) > 1 else "Unknown"
+        module_name = module_details[1] if len(module_details) > 1 else module.strip()
+        print(f"{idx}. {module_code} - {module_name.strip()}")
 
     # Select a module
-    module_choice = input("Select a module to enroll in (or type 'Cancel' to exit): ").strip()
-    if module_choice.lower() == 'cancel':
-        print("Action canceled.")
-        return
-    
-    if not module_choice.isdigit() or not (1 <= int(module_choice) <= len(modules)):
-        print("Invalid choice. Returning to enrollment menu.")
-        return
-    
-    selected_module = modules[int(module_choice) - 1].strip().split(',')[0]
+    while True:
+        module_choice = input("Select a module by index (or type 'Cancel' to exit): ").strip()
+        if module_choice.lower() == 'cancel':
+            print("Action canceled.")
+            return
+        if module_choice.isdigit() and 1 <= int(module_choice) <= len(modules):
+            selected_module = modules[int(module_choice) - 1].strip().split(',')[1]
+            break
+        else:
+            print("Invalid choice. Please select a valid module index.")
 
     # Check if already enrolled
     if any(f"{student_id},{selected_module}" in line for line in enrollments):
@@ -86,12 +87,5 @@ def enroll_student(student_id, enrollments, COURSE_DIR):
     
     # Add enrollment
     enrollments.append(f"{student_id},{selected_module}\n")
-    write_data(ENROLLMENTS_FILE, enrollments)
-    print(f"Student {student_id} successfully enrolled in module {selected_module}.")
-
-    # Debugging to ensure enrollments is a valid list of strings
-    print('DEBUG: Enrollments before writing:", enrollments')
-
-    # Write updated enrollments to file
     write_data(ENROLLMENTS_FILE, enrollments)
     print(f"Student {student_id} successfully enrolled in module {selected_module}.")
