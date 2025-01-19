@@ -1,3 +1,4 @@
 TP098878,Brian Ban,Undergraduate,Bachelor of Banking and Finance (Hons) with a specialism in Financial Technology,N/A,N/A
 TP099999,b,Foundation,Foundation in Architecture & Design,N/A,N/A
 TP099998,bbb,Foundation,Foundation in Computing & Technology,N/A,N/A
+TP073289,Airil,Undergraduate,Bachelor of Computer Science (Hons) (Artificial Intelligence),airil@gmail.com,N/A
