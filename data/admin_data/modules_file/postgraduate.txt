@@ -1,0 +1,29 @@
+BESP,Business Environment & Stategic Planning
+UC,Underdstanding Customers
+MP,Managing People
+MF,Managerial Finance
+BIS,Business Inteliigence Systems
+MCI,Managing Creativity and Innovation
+NDPI,New Product Development & Innovation
+SDM,Statistical Decision Making
+TM,Technology Management
+TCP,Technology Cultural and People: A Global Perspective
+ENTREA,Entrepreneuship in Asia
+RMCE,Research Methodology in Computing and Engineering
+DE,Digital Execution
+DM,Data Management
+SMM,Strategic Marketing Management
+MSAG,Marketing and Sustainability in the Age of Globalisation
+OSDD,Software Design and Development
+OSYDM,System Development Methods
+OSEP,Software Engineering Principles
+MSDP,Managing Software Development Projects
+RELM,Reliability Management
+OOSSE,Object Oriented Software Systems Engineering
+SESE,Software Engineering Support Environments
+SQE,Software Quality Engineering
+SECT,Security Technologies
+IA,Internet Applications
+NDP,Network Design & Performance
+BDAT,Big Data Analytics and Technologies
+NLP,Natural Language Processing
