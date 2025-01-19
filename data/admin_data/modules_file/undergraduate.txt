@@ -1,0 +1,21 @@
+BMK,Bahasa Melayu Komunikasi
+DGTIN,Digital Thinking and Innovation
+IDB,Introduction to Database
+IN,Introduction to Networking
+PEP,Penghayatan Etika dan Peradaban
+PYP,Python Programming
+SSCC,System Software and Computing Concept
+FE,Fundamenta of Entrepreneurship
+ICS,Integrated Computer Systems
+IAI,Introduction to Artificial Intelligence
+IAC,Integrity and Anti Corruption
+IOOP,Introduction to Object Oriented Programming
+MCC,Mathematical Concept for Computing
+SAD,System Analytics & Designs
+FSIR,Film Studeis and International Relations
+IIR,Introduction to International Relations
+IP,Introduction to Politics
+MTW,Malaysia and The World
+GCP,Global Comparative Politics
+IG,Introduction to Globalisation
+RPUSMWP,Revolution Popular Uprising and Social Movement In World Politics
