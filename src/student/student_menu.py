@@ -1,5 +1,5 @@
 from admin.courses.view_all_courses import view_all_courses
-from student.modules.view_attendence import access_attendance_record
+from student.modules.view_attendance import access_attendance_record
 from student.modules.view_grade import view_grades
 from student.modules.enroll_module import enroll_module
 from student.modules.unenroll_module import unenroll_module
@@ -32,22 +32,22 @@ def student_menu():
         choice = input("\nSelect an option: ")
 
         if choice == '1':
-            student_id = input("Enter your student ID: ").lower()
+            student_id = input("Enter your student ID: ").upper()
             access_attendance_record(student_id)
         elif choice == '2':
-            student_id = input("Enter your student ID: ").lower()
+            student_id = input("Enter your student ID: ").upper()
             view_grades(student_id)
         elif choice == '3':
             view_all_courses()
         elif choice == '4':
-            inputs = input("Enter your student ID and module code to enroll (e.g., tp085702 cs101): ").lower().split()
+            inputs = input("Enter your student ID and module code to enroll (e.g., tp085702 cs101): ").upper().split()
             if len(inputs) != 2:
                 print("Invalid input. Please provide both your student ID and module code.")
             else:
                 student_id, module_code = inputs
                 enroll_module(student_id, module_code)
         elif choice == '5':
-            inputs = input("Enter your student ID and module code to unenroll (e.g., tp085702 cs101): ").lower().split()
+            inputs = input("Enter your student ID and module code to unenroll (e.g., tp085702 cs101): ").upper().split()
             if len(inputs) != 2:
              print("Invalid input. Please provide both your student ID and module code.")
             else:
