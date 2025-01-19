@@ -52,7 +52,7 @@ def manage_enrollments():
 
         choice = input("Select an option: ").strip()
         if choice == '1':
-            enroll_student(student_id, enrollments, COURSE_DIR)
+            enroll_student(student_id, enrollments)
         elif choice == '2':
             unenroll_student(student_id, enrollments)
         elif choice == '3':
