@@ -6,7 +6,7 @@ from settings import FOUNDATION_FILE, DIPLOMA_FILE, UNDERGRADUATE_DIR, POSTGRADU
 def remove_course():
     """Remove a course from the system."""
     rc_art = r"""
-     ___                              ___                         
+     ___                              ___                           
     | . \ ___ ._ _ _  ___  _ _  ___  |  _> ___  _ _  _ _  ___ ___ 
     |   // ._>| ' ' |/ . \| | |/ ._> | <__/ . \| | || '_><_-</ ._>
     |_\_\\___.|_|_|_|\___/|__/ \___. `___/\___/`___||_|  /__/\___.
