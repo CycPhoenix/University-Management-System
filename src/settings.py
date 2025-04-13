@@ -28,9 +28,6 @@ DIPLOMA_FILE = os.path.join(ADMIN_DATA_DIR, 'courses', 'diploma.txt')
 UNDERGRADUATE_DIR = os.path.join(ADMIN_DATA_DIR, 'courses', 'undergraduate')
 POSTGRADUATE_DIR = os.path.join(ADMIN_DATA_DIR, 'courses', 'postgraduate')
 
-
-EXAMPLE_FILE = os.path.join(ADMIN_DATA_DIR, 'example.txt')
-
 MFOUNDATION_FILE = os.path.join(ADMIN_DATA_DIR, 'modules_file', 'foundation.txt')
 MDIPLOMA_FILE = os.path.join(ADMIN_DATA_DIR, 'modules_file', 'diploma.txt')
 MUNDERGRADUATE_FILE = os.path.join(ADMIN_DATA_DIR, 'modules_file', 'undergraduate.txt')
